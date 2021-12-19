@@ -125,6 +125,13 @@ variable "disabled" {
 }
 
 
+variable "force_destroy" {
+  description = "Whether storage buckets should get destroyed even if there are objects within"
+  type        = string
+  default     = true
+}
+
+
 variable "use_helm" {
   description = "Whether CICD should be deploy using helm or not"
   type        = string

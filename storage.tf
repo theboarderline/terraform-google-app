@@ -5,6 +5,8 @@ module "bucket" {
   project_id = var.app_project_id
   location   = var.region
 
+  force_destroy = var.force_destroy
+
   iam_members = [{
     role   = "roles/storage.objectViewer"
     member = "allUsers"
