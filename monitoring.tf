@@ -140,7 +140,8 @@ resource "google_monitoring_dashboard" "dashboard" {
       }
     ]
   }
-}EOF
+}"
+EOF
 }
 
 
