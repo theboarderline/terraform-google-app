@@ -1,5 +1,7 @@
 
 resource "google_monitoring_dashboard" "dashboard" {
+  project = var.gke_project_id
+
   dashboard_json = <<EOF
 {
   "category": "CUSTOM",
