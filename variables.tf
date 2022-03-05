@@ -97,7 +97,7 @@ variable "included_files" {
   description = "List of included files for cloudbuild"
   type        = list(string)
   default = [
-    "nginx/**",
+    "react/**",
     "api/**",
     "cloudbuild.yaml",
   ]
