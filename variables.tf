@@ -104,6 +104,13 @@ variable "included_files" {
 }
 
 
+variable "namespaces" {
+  description = "List of namespaces to make monitoring dashboards for"
+  type        = list(string)
+  default = []
+}
+
+
 variable "admin" {
   description = "GCP Bucket Admin"
   type        = string
@@ -137,5 +144,6 @@ variable "use_helm" {
   type        = string
   default     = false
 }
+
 
 
