@@ -131,7 +131,7 @@ resource "google_monitoring_dashboard" "dashboard" {
         "height": 4,
         "widget": {
           "alertChart": {
-            "name": "projects/p-platform-gke-project/alertPolicies/7453247611856152035"
+            "name": "projects/${var.gke_project_id}/alertPolicies/7453247611856152035"
           }
         },
         "width": 6,
