@@ -9,7 +9,7 @@ locals {
 
   ip_name = "${var.lifecycle_name}-${var.repo_name}-ip"
 
-  cicd_service_account = "${var.lifecycle_name}-${var.repo_name}-cicd@${var.app_project_id}.iam.gserviceaccount.com"
+  cicd_service_account = "projects/${var.app-project_id}/serviceAccounts/${var.lifecycle_name}-${var.repo_name}-cicd@${var.app_project_id}.iam.gserviceaccount.com"
 }
 
 
