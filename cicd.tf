@@ -17,6 +17,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_trigger" {
   }
 
   filename = var.filename
+  service_account = local.cicd_service_account
 
   substitutions = {
     _LIFECYCLE    = var.lifecycle_name
