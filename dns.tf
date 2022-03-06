@@ -16,7 +16,7 @@ resource "google_compute_global_address" "global_ip" {
   count = var.create_ip && !var.disabled ? 1 : 0
 
   project = var.gke_project_id
-  name    = "${var.repo_name}-ip"
+  name    = local.ip_name
 }
 
 
