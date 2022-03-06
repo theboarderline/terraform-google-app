@@ -39,6 +39,69 @@ resource "google_cloudbuild_trigger" "cloudbuild_trigger" {
   }
 
   build {
+    step {
+      id = "Build-API"
+      name = "gcr.io/kaniko-project/executor:latest" 
+      args = [
+        "--destination=${var.region}-docker.pkg.dev/${var.app_project_id}/${var.lifecycle_name}/api:$COMMIT_SHA",
+        "--destination=${var.region}-docker.pkg.dev/${var.app_project_id}/${var.lifecycle_name}/api:latest",
+        "--context=./api",
+        "--cache=true",
+        "--cache-ttl=240h"
+      ]
+    }
+
+    step {
+      id = "Build-React"
+      name = "gcr.io/kaniko-project/executor:latest" 
+      args = [
+        "--destination=${var.region}-docker.pkg.dev/${var.app_project_id}/${var.lifecycle_name}/nginx:$COMMIT_SHA",
+        "--destination=${var.region}-docker.pkg.dev/${var.app_project_id}/${var.lifecycle_name}/nginx:latest",
+        "--context=./react",
+        "--cache=true",
+        "--cache-ttl=240h"
+      ]
+    }
+
+    step {
+      id = "GKE-Auth"
+      name = "gcr.io/cloud-builders/gcloud-slim"
+      entrypoint = "bash"
+      args = [
+        "-c",
+        "gcloud",
+        "container",
+        "clusters",
+        "get-credentials",
+        "${var.cluster_name}",
+        "--zone=${var.zone}",
+        "--project=${var.gke_project_id}",
+      ]
+    }
+
+    step {
+      id = "Helm-Upgrade"
+      name = "gcr.io/walker-cpl/helm"
+      entrypoint = "bash"
+      args = [
+        "-c",
+        "helm", "dep", "update",
+        "./charts/web-app",
+        "&&",
+        "helm", "upgrade", "-i", "${var.lifecycle_name}-${var.repo_name}",
+        "./charts/web-app",
+        "-f", "./charts/web-app/values/${var.lifecycle_name}",
+        "-n", "${var.lifecycle_name}-${var.repo_name}",
+        "--set", "web-app.api.tag=$COMMIT_SHA",
+        "--set", "web-app.nginx.tag=$COMMIT_SHA",
+        "--set", "web-app.app_project_id=${var.app_project_id}",
+        "--set", "web-app.gke_project_id=${var.gke_project_id}",
+        "--set", "web-app.db_project_id=${var.db_project_id}",
+        "--set", "web-app.google.domain=${var.domain}",
+        "--set", "web-app.app_code=${var.repo_name}",
+      ]
+    }
+
     options {
       machine_type = var.cicd_machine_type
       logging      = var.logging
