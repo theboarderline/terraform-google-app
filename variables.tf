@@ -92,13 +92,6 @@ variable "dns_zone_name" {
 }
 
 
-variable "filename" {
-  description = "Cloudbuild script filepath"
-  type        = string
-  default     = "cloudbuild.yaml"
-}
-
-
 variable "included_files" {
   description = "List of included files for cloudbuild"
   type        = list(string)
@@ -106,7 +99,6 @@ variable "included_files" {
     "react/**",
     "api/**",
     "charts/web-app/**",
-    "cloudbuild.yaml",
   ]
 }
 
