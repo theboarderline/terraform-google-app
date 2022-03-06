@@ -38,9 +38,11 @@ resource "google_cloudbuild_trigger" "cloudbuild_trigger" {
     _USE_HELM = var.use_helm
   }
 
-  options {
-    machine_type = var.cicd_machine_type
-    logging      = var.logging
+  build {
+    options {
+      machine_type = var.cicd_machine_type
+      logging      = var.logging
+    }
   }
 
 }
