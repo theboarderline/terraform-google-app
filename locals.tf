@@ -10,7 +10,7 @@ locals {
   ip_name = "${var.lifecycle_name}-${var.repo_name}-ip"
 
   cpl_sa_project_id = "${local.lifecycle_letter}-cpl-svc-acct-project"
-  cicd_service_account = "${var.lifecycle_name}-${var.repo_name}-cicd@${var.cpl_sa_project_id}.iam.gserviceaccount.com"
+  cicd_service_account = "${var.lifecycle_name}-${var.repo_name}-cicd@${local.cpl_sa_project_id}.iam.gserviceaccount.com"
 }
 
 
