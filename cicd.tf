@@ -24,6 +24,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_trigger" {
     _DOMAIN       = var.domain
     _NAMESPACE    = "${var.lifecycle_name}-${var.repo_name}"
     _GKE_PROJECT  = var.gke_project_id
+    _DB_PROJECT   = var.db_project_id
 
     _REGION  = var.region
     _ZONE    = var.zone

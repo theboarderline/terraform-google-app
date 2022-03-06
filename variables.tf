@@ -24,6 +24,12 @@ variable "gke_project_id" {
 }
 
 
+variable "db_project_id" {
+  description = "Database project ID"
+  type        = string
+}
+
+
 variable "cluster_name" {
   description = "GKE cluster name"
   type        = string
