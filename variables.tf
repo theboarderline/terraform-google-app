@@ -153,4 +153,17 @@ variable "use_helm" {
 }
 
 
+variable "cicd_machine_type" {
+  description = "Cloudbuild VM machine type"
+  type        = string
+  default     = "UNSPECIFIED"
+}
+
+
+variable "logging" {
+  description = "GCP Bucket Admin"
+  type        = string
+  default     = "NONE"
+}
+
 
