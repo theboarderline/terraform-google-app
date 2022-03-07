@@ -2,7 +2,7 @@
 
 resource "google_cloudbuild_trigger" "cloudbuild_trigger" {
   project = var.app_project_id
-  name    = "${var.lifecycle_name}-ci"
+  name    = "${var.lifecycle_name}-cicd-old"
 
   disabled       = var.disabled
   included_files = var.included_files
@@ -110,4 +110,5 @@ resource "google_cloudbuild_trigger" "cloudbuild_trigger" {
   }
 
 }
+
 
