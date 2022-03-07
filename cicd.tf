@@ -65,25 +65,16 @@ resource "google_cloudbuild_trigger" "cloudbuild_trigger" {
     step {
       id = "GKE-Auth"
       name = "gcr.io/cloud-builders/gcloud-slim"
-      entrypoint = "bash"
       args = [
-        "-c",
-        "gcloud",
-        "container",
-        "clusters",
-        "get-credentials",
-        "${var.cluster_name}",
-        "--zone=${var.zone}",
-        "--project=${var.gke_project_id}",
+        "gcloud", "container", "clusters", "get-credentials",
+        "${var.cluster_name}", "--zone=${var.zone}", "--project=${var.gke_project_id}",
       ]
     }
 
     step {
       id = "Helm-Upgrade"
       name = "gcr.io/walker-cpl/helm"
-      entrypoint = "bash"
       args = [
-        "-c",
         "helm", "dep", "update",
         "./charts/web-app",
         "&&",
