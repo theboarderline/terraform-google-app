@@ -67,7 +67,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_trigger" {
       name       = "gcr.io/cloud-builders/gcloud-slim"
       entrypoint = "bash"
       args = [
-        "gcloud container clusters get-credentials ${var.cluster_name} --zone=${var.zone} --project=${var.gke_project_id}",
+        "-c", "gcloud container clusters get-credentials ${var.cluster_name} --zone=${var.zone} --project=${var.gke_project_id}",
       ]
     }
 
@@ -76,7 +76,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_trigger" {
       name       = "gcr.io/walker-cpl/helm"
       entrypoint = "bash"
       args = [
-        "helm dep update ./charts/web-app && helm upgrade -i ${var.lifecycle_name}-${var.repo_name} ./charts/web-app -f ./charts/web-app/values/${var.lifecycle_name}.yaml -n ${var.lifecycle_name}-${var.repo_name} --set web-app.api.tag=$COMMIT_SHA --set web-app.nginx.tag=$COMMIT_SHA --set web-app.app_project_id=${var.app_project_id} --set web-app.gke_project_id=${var.gke_project_id} --set web-app.db_project_id=${var.db_project_id} --set web-app.google.domain=${var.domain} --set web-app.app_code=${var.repo_name}",
+        "-c", "helm dep update ./charts/web-app && helm upgrade -i ${var.lifecycle_name}-${var.repo_name} ./charts/web-app -f ./charts/web-app/values/${var.lifecycle_name}.yaml -n ${var.lifecycle_name}-${var.repo_name} --set web-app.api.tag=$COMMIT_SHA --set web-app.nginx.tag=$COMMIT_SHA --set web-app.app_project_id=${var.app_project_id} --set web-app.gke_project_id=${var.gke_project_id} --set web-app.db_project_id=${var.db_project_id} --set web-app.google.domain=${var.domain} --set web-app.app_code=${var.repo_name}",
       ]
     }
 
