@@ -18,24 +18,24 @@ resource "google_cloudbuild_trigger" "cloudbuild_trigger" {
 
   service_account = local.cicd_service_account
 
-  substitutions = {
-    _LIFECYCLE    = var.lifecycle_name
-    _APP_CODE     = var.repo_name
-    _DOMAIN       = var.domain
-    _NAMESPACE    = "${var.lifecycle_name}-${var.repo_name}"
-    _GKE_PROJECT  = var.gke_project_id
-    _DB_PROJECT   = var.db_project_id
-
-    _REGION  = var.region
-    _ZONE    = var.zone
-    _CLUSTER = var.cluster_name
-
-    _FAILOVER_REGION  = var.failover_region
-    _FAILOVER_ZONE    = var.failover_zone
-    _FAILOVER_CLUSTER = var.failover_cluster_name
-
-    _USE_HELM = var.use_helm
-  }
+  # substitutions = {
+  #   _LIFECYCLE    = var.lifecycle_name
+  #   _APP_CODE     = var.repo_name
+  #   _DOMAIN       = var.domain
+  #   _NAMESPACE    = "${var.lifecycle_name}-${var.repo_name}"
+  #   _GKE_PROJECT  = var.gke_project_id
+  #   _DB_PROJECT   = var.db_project_id
+  #
+  #   _REGION  = var.region
+  #   _ZONE    = var.zone
+  #   _CLUSTER = var.cluster_name
+  #
+  #   _FAILOVER_REGION  = var.failover_region
+  #   _FAILOVER_ZONE    = var.failover_zone
+  #   _FAILOVER_CLUSTER = var.failover_cluster_name
+  #
+  #   _USE_HELM = var.use_helm
+  # }
 
   build {
     step {
