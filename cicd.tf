@@ -65,10 +65,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_trigger" {
     step {
       id = "GKE-Auth"
       name = "gcr.io/cloud-builders/gcloud-slim"
-      entrypoint = "bash"
       args = [
-        "-c",
-        "gcloud",
         "container",
         "clusters",
         "get-credentials",
