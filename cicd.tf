@@ -66,8 +66,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_trigger" {
       id = "GKE-Auth"
       name = "gcr.io/cloud-builders/gcloud-slim"
       args = [
-        "gcloud", "container", "clusters", "get-credentials",
-        "${var.cluster_name}", "--zone=${var.zone}", "--project=${var.gke_project_id}",
+        "gcloud container clusters get-credentials ${var.cluster_name} --zone=${var.zone} --project=${var.gke_project_id}",
       ]
     }
 
