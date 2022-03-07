@@ -1,13 +1,11 @@
 
 resource "google_monitoring_dashboard" "dashboard" {
-  for_each = toset(local.namespaces)
-
   project = var.gke_project_id
 
   dashboard_json = <<EOF
 {
   "category": "CUSTOM",
-  "displayName": "${var.lifecycle_name}-${each.key}",
+  "displayName": "${var.lifecycle_name}-${var.repo_name}",
   "mosaicLayout": {
     "columns": 12,
     "tiles": [
@@ -32,7 +30,7 @@ resource "google_monitoring_dashboard" "dashboard" {
                       "crossSeriesReducer": "REDUCE_NONE",
                       "perSeriesAligner": "ALIGN_MEAN"
                     },
-                    "filter": "metric.type=\"kubernetes.io/container/memory/used_bytes\" resource.type=\"k8s_container\" resource.label.\"namespace_name\"=\"${var.lifecycle_name}-${each.key}\""
+                    "filter": "metric.type=\"kubernetes.io/container/memory/used_bytes\" resource.type=\"k8s_container\" resource.label.\"namespace_name\"=\"${var.lifecycle_name}-${var.repo_name}\""
                   }
                 }
               }
@@ -69,7 +67,7 @@ resource "google_monitoring_dashboard" "dashboard" {
                       "crossSeriesReducer": "REDUCE_NONE",
                       "perSeriesAligner": "ALIGN_MEAN"
                     },
-                    "filter": "metric.type=\"kubernetes.io/pod/volume/used_bytes\" resource.type=\"k8s_pod\" resource.label.\"namespace_name\"=\"${var.lifecycle_name}-${each.key}\" metric.label.\"volume_name\"=\"gce-volume\""
+                    "filter": "metric.type=\"kubernetes.io/pod/volume/used_bytes\" resource.type=\"k8s_pod\" resource.label.\"namespace_name\"=\"${var.lifecycle_name}-${var.repo_name}\" metric.label.\"volume_name\"=\"gce-volume\""
                   }
                 }
               }
@@ -106,7 +104,7 @@ resource "google_monitoring_dashboard" "dashboard" {
                       "crossSeriesReducer": "REDUCE_NONE",
                       "perSeriesAligner": "ALIGN_RATE"
                     },
-                    "filter": "metric.type=\"kubernetes.io/container/cpu/core_usage_time\" resource.type=\"k8s_container\" resource.label.\"namespace_name\"=\"${var.lifecycle_name}-${each.key}\"",
+                    "filter": "metric.type=\"kubernetes.io/container/cpu/core_usage_time\" resource.type=\"k8s_container\" resource.label.\"namespace_name\"=\"${var.lifecycle_name}-${var.repo_name}\"",
                     "secondaryAggregation": {
                       "alignmentPeriod": "60s",
                       "crossSeriesReducer": "REDUCE_NONE",

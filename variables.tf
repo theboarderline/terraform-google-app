@@ -30,6 +30,12 @@ variable "db_project_id" {
 }
 
 
+variable "app_project_id" {
+  description = "App project ID"
+  type        = string
+}
+
+
 variable "cluster_name" {
   description = "GKE cluster name"
   type        = string
@@ -43,11 +49,6 @@ variable "failover_cluster_name" {
   default     = "east-cluster"
 }
 
-variable "app_project_id" {
-  description = "App project ID"
-  type        = string
-}
-
 
 variable "github_owner" {
   description = "Github repo owner"
@@ -55,6 +56,12 @@ variable "github_owner" {
   default     = "theboarderline"
 }
 
+
+variable "admin" {
+  description = "GCP Bucket Admin"
+  type        = string
+  default     = ""
+}
 
 
 variable "region" {
@@ -103,17 +110,17 @@ variable "included_files" {
 }
 
 
-variable "namespaces" {
-  description = "List of namespaces to make monitoring dashboards for"
+variable "build_locations" {
+  description = "List of directories to build and push containers for"
   type        = list(string)
   default = []
 }
 
 
-variable "admin" {
-  description = "GCP Bucket Admin"
-  type        = string
-  default     = ""
+variable "namespaces" {
+  description = "List of namespaces to make monitoring dashboards for"
+  type        = list(string)
+  default = []
 }
 
 
@@ -148,7 +155,7 @@ variable "use_helm" {
 variable "cicd_machine_type" {
   description = "Cloudbuild VM machine type"
   type        = string
-  default     = "UNSPECIFIED"
+  default     = ""
 }
 
 
@@ -157,5 +164,4 @@ variable "logging" {
   type        = string
   default     = "STACKDRIVER_ONLY"
 }
-
 
