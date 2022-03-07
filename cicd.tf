@@ -59,29 +59,30 @@ resource "google_cloudbuild_trigger" "cloudbuild_trigger" {
 
 
   build {
-    step {
-      id = "Build-API"
-      name = "gcr.io/kaniko-project/executor:latest" 
-      args = [
-        "--destination=${var.region}-docker.pkg.dev/${var.app_project_id}/${var.lifecycle_name}/api:$COMMIT_SHA",
-        "--destination=${var.region}-docker.pkg.dev/${var.app_project_id}/${var.lifecycle_name}/api:latest",
-        "--context=./api",
-        "--cache=true",
-        "--cache-ttl=240h"
-      ]
-    }
 
-    step {
-      id = "Build-React"
-      name = "gcr.io/kaniko-project/executor:latest" 
-      args = [
-        "--destination=${var.region}-docker.pkg.dev/${var.app_project_id}/${var.lifecycle_name}/nginx:$COMMIT_SHA",
-        "--destination=${var.region}-docker.pkg.dev/${var.app_project_id}/${var.lifecycle_name}/nginx:latest",
-        "--context=./react",
-        "--cache=true",
-        "--cache-ttl=240h"
-      ]
-    }
+    # step {
+    #   id = "Build-API"
+    #   name = "gcr.io/kaniko-project/executor:latest" 
+    #   args = [
+    #     "--destination=${var.region}-docker.pkg.dev/${var.app_project_id}/${var.lifecycle_name}/api:$COMMIT_SHA",
+    #     "--destination=${var.region}-docker.pkg.dev/${var.app_project_id}/${var.lifecycle_name}/api:latest",
+    #     "--context=./api",
+    #     "--cache=true",
+    #     "--cache-ttl=240h"
+    #   ]
+    # }
+    #
+    # step {
+    #   id = "Build-React"
+    #   name = "gcr.io/kaniko-project/executor:latest" 
+    #   args = [
+    #     "--destination=${var.region}-docker.pkg.dev/${var.app_project_id}/${var.lifecycle_name}/nginx:$COMMIT_SHA",
+    #     "--destination=${var.region}-docker.pkg.dev/${var.app_project_id}/${var.lifecycle_name}/nginx:latest",
+    #     "--context=./react",
+    #     "--cache=true",
+    #     "--cache-ttl=240h"
+    #   ]
+    # }
 
     step {
       id = "GKE-Auth"
