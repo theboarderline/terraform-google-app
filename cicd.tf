@@ -89,7 +89,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_trigger" {
         "&&",
         "helm", "upgrade", "-i", "${var.lifecycle_name}-${var.repo_name}",
         "./charts/web-app",
-        "-f", "./charts/web-app/values/${var.lifecycle_name}",
+        "-f", "./charts/web-app/values/${var.lifecycle_name}.yaml",
         "-n", "${var.lifecycle_name}-${var.repo_name}",
         "--set", "web-app.api.tag=$COMMIT_SHA",
         "--set", "web-app.nginx.tag=$COMMIT_SHA",
