@@ -16,7 +16,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_trigger_old" {
     }
   }
 
-  filename = var.filename
+  filename = "cloudbuild.yaml"
 
   substitutions = {
     _LIFECYCLE    = var.lifecycle_name
