@@ -1,6 +1,6 @@
 
 
-resource "google_cloudbuild_trigger" "cloudbuild_trigger" {
+resource "google_cloudbuild_trigger" "cloudbuild_trigger_old" {
   project = var.app_project_id
   name    = "${var.lifecycle_name}-cicd-old"
 
