@@ -162,6 +162,6 @@ variable "cicd_machine_type" {
 variable "logging" {
   description = "GCP Bucket Admin"
   type        = string
-  default     = "LEGACY"
+  default     = "STACKDRIVER_ONLY"
 }
 
