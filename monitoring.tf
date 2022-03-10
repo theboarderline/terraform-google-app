@@ -1,5 +1,7 @@
 
 resource "google_monitoring_dashboard" "dashboard" {
+  count = !var.disabled ? 1 : 0
+
   project = var.gke_project_id
 
   dashboard_json = <<EOF
