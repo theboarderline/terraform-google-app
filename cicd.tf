@@ -6,6 +6,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_trigger_legacy" {
 
   disabled       = var.disabled
   included_files = var.included_files
+  ignored_files  = var.ignored_files
   # service_account = local.cicd_service_account
 
   github {

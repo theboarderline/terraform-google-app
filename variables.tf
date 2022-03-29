@@ -110,6 +110,15 @@ variable "included_files" {
 }
 
 
+variable "ignored_files" {
+  description = "List of ignored files for cloudbuild"
+  type        = list(string)
+  default = [
+    "api/csv/**",
+  ]
+}
+
+
 variable "build_locations" {
   description = "List of directories to build and push containers for"
   type        = list(string)
