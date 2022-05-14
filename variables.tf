@@ -1,5 +1,19 @@
 
 
+variable "label" {
+  description = "App label"
+  type        = string
+  default     = ""
+}
+
+
+variable "app_code" {
+  description = "App team code"
+  type        = string
+  default     = ""
+}
+
+
 variable "lifecycle_name" {
   description = "Lifecycle name"
   type        = string

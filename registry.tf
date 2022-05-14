@@ -5,7 +5,7 @@ resource "google_artifact_registry_repository" "docker_repos" {
   project = var.app_project_id
 
   location      = var.region
-  repository_id = var.lifecycle_name
+  repository_id = "${local.app_label}-images"
   format        = "DOCKER"
 }
 

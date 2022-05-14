@@ -2,7 +2,7 @@
 
 resource "google_cloudbuild_trigger" "cloudbuild_trigger_legacy" {
   project = var.app_project_id
-  name    = "${var.lifecycle_name}-cicd"
+  name    = "${local.app_label}-cicd"
 
   disabled       = var.disabled
   included_files = var.included_files
@@ -22,8 +22,8 @@ resource "google_cloudbuild_trigger" "cloudbuild_trigger_legacy" {
 
   substitutions = {
     _LIFECYCLE    = var.lifecycle_name
-    _APP_CODE     = var.repo_name
-    _NAMESPACE    = "${var.lifecycle_name}-${var.repo_name}"
+    _APP_CODE     = var.app_code
+    _NAMESPACE    = "${var.lifecycle_name}-${var.app_code}"
     _DOMAIN       = var.domain
     _GKE_PROJECT  = var.gke_project_id
     _DB_PROJECT   = var.db_project_id
@@ -37,6 +37,12 @@ resource "google_cloudbuild_trigger" "cloudbuild_trigger_legacy" {
     _FAILOVER_CLUSTER = var.failover_cluster_name
 
     _USE_HELM = var.use_helm
+
+    _IMAGE_REPO_NAME        = "${local.app_label}-images"
+    _IP_NAME                = local.ip_name
+    _PUBLIC_BUCKET_NAME     = "${local.app_label}-web-static"
+    _INGEST_BUCKET_NAME     = "${local.app_label}-ingest"
+    _CLEAN_DATA_BUCKET_NAME = "${local.app_label}-cleaned-data"
   }
 
 }
