@@ -11,7 +11,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_trigger_legacy" {
 
   github {
     owner = var.github_owner
-    name  = var.repo_name
+    name  = var.app_code
 
     push {
       branch = var.lifecycle_name == "prod" ? "main" : var.lifecycle_name
