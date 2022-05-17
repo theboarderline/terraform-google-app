@@ -1,6 +1,6 @@
 
 resource "google_dns_managed_zone" "dns_zone" {
-  count = var.lifecycle_name == "ops" ? 1 : 0
+  count = var.lifecycle_name == "ops" && var.create_dns_zone ? 1 : 0
 
   project = var.app_project_id
 
@@ -26,7 +26,7 @@ resource "google_dns_record_set" "dns_record_set" {
   project = var.app_project_id
 
   managed_zone = var.dns_zone_name
-  name         = var.lifecycle_name == "prod" ? "${var.domain}." : "${var.lifecycle_name}.${var.domain}."
+  name         = var.lifecycle_name == "prod" ? "${local.full_domain}." : "${var.lifecycle_name}.${local.full_domain}."
   type         = "A"
   rrdatas      = [google_compute_global_address.global_ip[0].address]
   ttl          = 86400

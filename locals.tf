@@ -11,6 +11,8 @@ locals {
 
   cicd_service_account = "projects/${var.app_project_id}/serviceAccounts/${var.lifecycle_name}-${var.app_code}-cicd@${var.app_project_id}.iam.gserviceaccount.com"
 
+  full_domain = var.subdomain != "" ? "${var.subdomain}.${var.domain}" : var.domain
+
 }
 
 

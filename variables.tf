@@ -32,6 +32,13 @@ variable "domain" {
 }
 
 
+variable "subdomain" {
+  description = "DNS sub Domain"
+  type        = string
+  default     = ""
+}
+
+
 variable "gke_project_id" {
   description = "GKE project ID"
   type        = string
@@ -103,6 +110,13 @@ variable "failover_zone" {
   description = "GCP failover zone"
   type        = string
   default     = "us-east4-b"
+}
+
+
+variable "create_dns_zone" {
+  description = "Whether Cloud DNS zone should get created"
+  type        = bool
+  default     = true
 }
 
 
