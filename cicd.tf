@@ -24,7 +24,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_trigger_legacy" {
     _LIFECYCLE    = var.lifecycle_name
     _APP_CODE     = var.app_code
     _NAMESPACE    = "${var.lifecycle_name}-${var.app_code}"
-    _DOMAIN       = var.domain
+    _DOMAIN       = local.full_domain
     _GKE_PROJECT  = var.gke_project_id
     _DB_PROJECT   = var.db_project_id
 
