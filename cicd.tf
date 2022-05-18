@@ -14,7 +14,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_trigger_legacy" {
     name  = var.app_code
 
     push {
-      branch = var.lifecycle_name == "prod" ? "main" : var.lifecycle_name
+      branch = var.lifecycle_name == "prod" ? "^main$" : "^${var.lifecycle_name}$"
     }
   }
 
