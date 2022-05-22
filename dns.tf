@@ -21,7 +21,7 @@ resource "google_compute_global_address" "global_ip" {
 
 
 resource "google_dns_record_set" "dns_record_set" {
-  count = var.create_ip && !var.disabled ? 1 : 0
+  count = var.create_ip && var.create_record_set && !var.disabled ? 1 : 0
 
   project = var.app_project_id
 

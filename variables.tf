@@ -120,6 +120,13 @@ variable "create_dns_zone" {
 }
 
 
+variable "create_record_set" {
+  description = "Whether Cloud DNS record set should get created"
+  type        = bool
+  default     = true
+}
+
+
 variable "dns_zone_name" {
   description = "Cloud DNS Zone name"
   type        = string
