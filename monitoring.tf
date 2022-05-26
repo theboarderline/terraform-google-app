@@ -1,4 +1,28 @@
 
+resource "google_monitoring_alert_policy" "alert_policy" {
+  display_name = "${var.app_code} Alert Policy"
+  combiner     = "OR"
+  conditions {
+    display_name = "${var.app_code} Uptime Alert"
+    condition_threshold {
+      filter     = "metric.type=\"monitoring.googleapis.com/uptime_check/check_passed\" AND metric.label.check_id=\"${var.app_code}\" AND resource.type=\"uptime_url\""
+      duration   = "60s"
+      comparison = "COMPARISON_GT"
+      aggregations {
+        alignment_period   = "1200s"
+        per_series_aligner = "ALIGN_NEXT_OLDER"
+      }
+    }
+  }
+
+  user_labels = {
+    app       = var.app_code
+    lifecycle = var.lifecycle_name
+  }
+}
+
+
+
 resource "google_monitoring_dashboard" "dashboard" {
   count = !var.disabled ? 1 : 0
 
