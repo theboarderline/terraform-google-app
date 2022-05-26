@@ -209,7 +209,7 @@ variable "trigger_timeout" {
 
 variable "notification_channel" {
   description = "List of notification channels for alerts"
-  type        = list(string)
-  default     = ["4610371196665423148"]
+  type        = string
+  default     = "4610371196665423148"
 }
 
