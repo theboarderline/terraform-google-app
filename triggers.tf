@@ -21,6 +21,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
   }
 
   build {
+    timeout = var.trigger_timeout
 
     step {
       id = "Build-React"

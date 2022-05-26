@@ -199,3 +199,10 @@ variable "logging" {
   default     = "STACKDRIVER_ONLY"
 }
 
+
+variable "trigger_timeout" {
+  description = "Cloud build trigger timeout"
+  type        = string
+  default     = "1800s"
+}
+
