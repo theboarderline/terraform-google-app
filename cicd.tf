@@ -1,10 +1,10 @@
 
 
-resource "google_cloudbuild_trigger" "cloudbuild_trigger_legacy" {
+resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
   for_each = toset(var.build_locations)
 
   project = var.app_project_id
-  name    = "${local.app_label}-cicd"
+  name    = "${each.key}-ci"
 
   # service_account = local.cicd_service_account
   disabled       = var.disabled
