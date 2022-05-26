@@ -2,6 +2,8 @@
 resource "google_monitoring_alert_policy" "alert_policy" {
   count = !var.disabled ? 1 : 0
 
+  project = var.gke_project_id
+
   display_name = "${var.app_code} Alert Policy"
   combiner     = "OR"
   conditions {
