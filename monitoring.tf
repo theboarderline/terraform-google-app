@@ -5,6 +5,7 @@ resource "google_monitoring_alert_policy" "alert_policy" {
   project = var.gke_project_id
 
   display_name = "${var.app_code} Alert Policy"
+  notification_channels =  ["projects/${var.gke_project_id}/notificationChannels/${var.notification_channel}"]
   combiner     = "OR"
   conditions {
     display_name = "${var.app_code} Uptime Alert"

@@ -206,3 +206,10 @@ variable "trigger_timeout" {
   default     = "1800s"
 }
 
+
+variable "notification_channel" {
+  description = "List of notification channels for alerts"
+  type        = list(string)
+  default     = ["4610371196665423148"]
+}
+
