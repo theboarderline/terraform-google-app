@@ -134,29 +134,20 @@ variable "dns_zone_name" {
 }
 
 
-variable "included_files" {
-  description = "List of included files for cloudbuild"
-  type        = list(string)
-  default = [
-    "react/**",
-    "api/**",
-  ]
-}
-
-
 variable "ignored_files" {
   description = "List of ignored files for cloudbuild"
   type        = list(string)
-  default = [
-    "api/csv/**",
-  ]
+  default = []
 }
 
 
 variable "build_locations" {
-  description = "List of directories to build and push containers for"
+  description = "List of directories to attach CI trigger to"
   type        = list(string)
-  default = []
+  default = [
+    "react",
+    "api",
+  ]
 }
 
 
