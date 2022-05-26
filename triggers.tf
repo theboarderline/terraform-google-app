@@ -4,7 +4,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
   for_each = toset(var.build_locations)
 
   project = var.app_project_id
-  name    = "${each.key}-ci"
+  name    = "${var.lifecycle_name}-${each.key}-ci"
 
   # service_account = local.cicd_service_account
   disabled       = var.disabled
