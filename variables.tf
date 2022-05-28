@@ -227,6 +227,7 @@ variable "included_files" {
   default     = [
     "react/**",
     "api/**",
+    "charts/web-app/**",
   ]
 }
 
