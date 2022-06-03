@@ -214,6 +214,13 @@ variable "notification_channel" {
 }
 
 
+variable "use_artifact_registry" {
+  description = "Whether app needs artifact registry repos for image storage"
+  type        = bool
+  default     = false
+}
+
+
 variable "separate_ci" {
   description = "Whether cloudbuild triggers should build each container separately, or together and use Helm for CD"
   type        = bool
