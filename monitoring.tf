@@ -1,10 +1,31 @@
 
+resource "google_monitoring_uptime_check_config" "https" {
+  display_name = title("${var.lifecycle_name} ${var.app_code}")
+  timeout = "60s"
+
+  http_check {
+    path = "/"
+    port = "443"
+    use_ssl = true
+    validate_ssl = true
+  }
+
+  monitored_resource {
+    type = "https"
+    labels = {
+      host = "${local.full_domain}"
+    }
+  }
+
+}
+
+
 resource "google_monitoring_alert_policy" "alert_policy" {
   count = !var.disabled ? 1 : 0
 
   project = var.gke_project_id
 
-  display_name = title("${var.lifecycle_name} ${var.app_code} Alert Policy")
+  display_name = title("${var.lifecycle_name} ${var.app_code} Alerts")
   notification_channels =  ["projects/${var.gke_project_id}/notificationChannels/${var.notification_channel}"]
   combiner     = "OR"
   conditions {
