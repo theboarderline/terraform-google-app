@@ -4,13 +4,13 @@ resource "google_monitoring_alert_policy" "alert_policy" {
 
   project = var.gke_project_id
 
-  display_name = "${local.namespace} Alert Policy"
+  display_name = title("${var.lifecycle_name} ${var.app_code} Alert Policy")
   notification_channels =  ["projects/${var.gke_project_id}/notificationChannels/${var.notification_channel}"]
   combiner     = "OR"
   conditions {
-    display_name = "${var.app_code} Uptime Alert"
+    display_name = title("${var.lifecycle_name} ${var.app_code} Uptime Alert")
     condition_threshold {
-      filter     = "metric.type=\"monitoring.googleapis.com/uptime_check/check_passed\" AND metric.label.check_id=\"${var.app_code}\" AND resource.type=\"uptime_url\""
+      filter     = "metric.type=\"monitoring.googleapis.com/uptime_check/check_passed\" AND metric.label.check_id=\"${local.namespace}\" AND resource.type=\"uptime_url\""
       duration   = "60s"
       comparison = "COMPARISON_GT"
       aggregations {
