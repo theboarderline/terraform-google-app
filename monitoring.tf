@@ -15,7 +15,7 @@ resource "google_monitoring_uptime_check_config" "https_uptime" {
   }
 
   monitored_resource {
-    type = "https"
+    type = "uptime_url"
     labels = {
       host = "${local.full_domain}"
     }
