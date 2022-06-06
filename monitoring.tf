@@ -7,6 +7,8 @@ resource "google_monitoring_uptime_check_config" "https_uptime" {
   display_name = title("${var.lifecycle_name} ${var.app_code}")
   timeout = "60s"
 
+  selected_regions = var.selected_regions
+
   http_check {
     path = "/"
     port = "443"
