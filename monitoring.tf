@@ -1,5 +1,9 @@
 
-resource "google_monitoring_uptime_check_config" "https" {
+resource "google_monitoring_uptime_check_config" "https_uptime" {
+  count = !var.disabled ? 1 : 0
+
+  project = var.gke_project_id
+
   display_name = title("${var.lifecycle_name} ${var.app_code}")
   timeout = "60s"
 
