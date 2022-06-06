@@ -243,9 +243,9 @@ variable "selected_regions" {
   description = "List of regions to use in uptime checks"
   type        = list(string)
   default     = [
-    "usa-iowa",
-    "usa-oregon",
-    "usa-virginia",
+    "us-central1",
+    "us-east4",
+    "us-west1",
   ]
 }
 
