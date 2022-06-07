@@ -34,8 +34,17 @@ resource "google_monitoring_alert_policy" "alert_policy" {
   display_name = title("${var.lifecycle_name} ${var.app_code} Alerts")
   notification_channels =  ["projects/${var.gke_project_id}/notificationChannels/${var.notification_channel}"]
   combiner     = "OR"
+
   conditions {
     display_name = title("${var.lifecycle_name} ${var.app_code} Uptime Alert")
+
+    condition_absent {
+      duration = var.uptime_trigger_duration
+      trigger {
+        count = var.uptime_trigger_count
+      }
+    }
+
     condition_threshold {
       filter     = "metric.type=\"monitoring.googleapis.com/uptime_check/check_passed\" AND metric.label.check_id=\"${google_monitoring_uptime_check_config.https_uptime[0].uptime_check_id}\" AND resource.type=\"uptime_url\""
       duration   = "60s"
@@ -45,6 +54,7 @@ resource "google_monitoring_alert_policy" "alert_policy" {
         per_series_aligner = "ALIGN_NEXT_OLDER"
       }
     }
+
   }
 
   user_labels = {

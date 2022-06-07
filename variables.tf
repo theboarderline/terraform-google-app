@@ -239,6 +239,20 @@ variable "included_files" {
 }
 
 
+variable "uptime_trigger_count" {
+  description = "Integer representing the number of failed checks before triggering an alert"
+  type        = number
+  default     = 1
+}
+
+
+variable "uptime_trigger_duration" {
+  description = "Amount of time that a time series must fail to report new data to be considered failing"
+  type        = string
+  default     = "300s"
+}
+
+
 variable "selected_regions" {
   description = "List of regions to use in uptime checks"
   type        = list(string)
