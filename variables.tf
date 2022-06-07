@@ -239,6 +239,13 @@ variable "included_files" {
 }
 
 
+variable "monitoring_suite" {
+  description = "Whether monitoring resources should be created"
+  type        = bool
+  default     = false
+}
+
+
 variable "uptime_trigger_count" {
   description = "Integer representing the number of failed checks before triggering an alert"
   type        = number
