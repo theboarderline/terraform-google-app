@@ -38,16 +38,17 @@ resource "google_monitoring_alert_policy" "alert_policy" {
   conditions {
     display_name = title("${var.lifecycle_name} ${var.app_code} Uptime Alert")
 
-    condition_absent {
-      duration = var.uptime_trigger_duration
-      trigger {
-        count = var.uptime_trigger_count
-      }
-    }
+    # condition_absent {
+    #   duration = var.uptime_trigger_duration
+    #   trigger {
+    #     count = var.uptime_trigger_count
+    #   }
+    # }
 
     condition_threshold {
       filter     = "metric.type=\"monitoring.googleapis.com/uptime_check/check_passed\" AND metric.label.check_id=\"${google_monitoring_uptime_check_config.https_uptime[0].uptime_check_id}\" AND resource.type=\"uptime_url\""
-      duration   = "60s"
+      threshold_value = var.uptime_trigger_count
+      duration   = var.uptime_trigger_duration
       comparison = "COMPARISON_GT"
       aggregations {
         alignment_period   = "1200s"
