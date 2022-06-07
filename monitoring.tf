@@ -10,7 +10,7 @@ resource "google_monitoring_uptime_check_config" "https_uptime" {
   selected_regions = var.selected_regions
 
   http_check {
-    path = "/"
+    path = "/health/"
     port = "443"
     use_ssl = true
     validate_ssl = true
