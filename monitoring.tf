@@ -61,6 +61,10 @@ resource "google_monitoring_alert_policy" "alert_policy" {
     app       = var.app_code
     lifecycle = var.lifecycle_name
   }
+
+  depends_on = [
+    google_monitoring_uptime_check_config.https_uptime
+  ]
 }
 
 
