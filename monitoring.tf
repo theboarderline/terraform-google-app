@@ -1,6 +1,6 @@
 
 resource "google_monitoring_uptime_check_config" "https_uptime" {
-  count = !var.disabled && !var.monitoring_suite ? 1 : 0
+  count = !var.disabled && var.monitoring_suite ? 1 : 0
 
   project = var.gke_project_id
 
@@ -27,7 +27,7 @@ resource "google_monitoring_uptime_check_config" "https_uptime" {
 
 
 resource "google_monitoring_alert_policy" "alert_policy" {
-  count = !var.disabled && !var.monitoring_suite ? 1 : 0
+  count = !var.disabled && var.monitoring_suite ? 1 : 0
 
   project = var.gke_project_id
 
@@ -71,7 +71,7 @@ resource "google_monitoring_alert_policy" "alert_policy" {
 
 
 resource "google_monitoring_dashboard" "dashboard" {
-  count = !var.disabled && !var.monitoring_suite ? 1 : 0
+  count = !var.disabled && var.monitoring_suite ? 1 : 0
 
   project = var.gke_project_id
 
