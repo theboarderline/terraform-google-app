@@ -1,71 +1,71 @@
 
-# resource "google_monitoring_uptime_check_config" "https_uptime" {
-#   count = !var.disabled ? 1 : 0
-#
-#   project = var.gke_project_id
-#
-#   display_name = title("${var.lifecycle_name} ${var.app_code}")
-#   timeout = "60s"
-#
-#   selected_regions = var.selected_regions
-#
-#   http_check {
-#     path = "/"
-#     port = "443"
-#     use_ssl = true
-#     validate_ssl = true
-#   }
-#
-#   monitored_resource {
-#     type = "uptime_url"
-#     labels = {
-#       host = "${local.full_domain}"
-#     }
-#   }
-#
-# }
-#
-#
-# resource "google_monitoring_alert_policy" "alert_policy" {
-#   count = !var.disabled ? 1 : 0
-#
-#   project = var.gke_project_id
-#
-#   display_name = title("${var.lifecycle_name} ${var.app_code} Alerts")
-#   notification_channels =  ["projects/${var.gke_project_id}/notificationChannels/${var.notification_channel}"]
-#   combiner     = "OR"
-#
-#   conditions {
-#     display_name = title("${var.lifecycle_name} ${var.app_code} Uptime Alert")
-#
-#     condition_absent {
-#       duration = var.uptime_trigger_duration
-#       trigger {
-#         count = var.uptime_trigger_count
-#       }
-#     }
-#
-#     condition_threshold {
-#       filter     = "metric.type=\"monitoring.googleapis.com/uptime_check/check_passed\" AND metric.label.check_id=\"${google_monitoring_uptime_check_config.https_uptime[0].uptime_check_id}\" AND resource.type=\"uptime_url\""
-#       duration   = "60s"
-#       comparison = "COMPARISON_GT"
-#       aggregations {
-#         alignment_period   = "1200s"
-#         per_series_aligner = "ALIGN_NEXT_OLDER"
-#       }
-#     }
-#
-#   }
-#
-#   user_labels = {
-#     app       = var.app_code
-#     lifecycle = var.lifecycle_name
-#   }
-#
-#   depends_on = [
-#     google_monitoring_uptime_check_config.https_uptime
-#   ]
-# }
+resource "google_monitoring_uptime_check_config" "https_uptime" {
+  count = !var.disabled ? 1 : 0
+
+  project = var.gke_project_id
+
+  display_name = title("${var.lifecycle_name} ${var.app_code}")
+  timeout = "60s"
+
+  selected_regions = var.selected_regions
+
+  http_check {
+    path = "/"
+    port = "443"
+    use_ssl = true
+    validate_ssl = true
+  }
+
+  monitored_resource {
+    type = "uptime_url"
+    labels = {
+      host = "${local.full_domain}"
+    }
+  }
+
+}
+
+
+resource "google_monitoring_alert_policy" "alert_policy" {
+  count = !var.disabled ? 1 : 0
+
+  project = var.gke_project_id
+
+  display_name = title("${var.lifecycle_name} ${var.app_code} Alerts")
+  notification_channels =  ["projects/${var.gke_project_id}/notificationChannels/${var.notification_channel}"]
+  combiner     = "OR"
+
+  conditions {
+    display_name = title("${var.lifecycle_name} ${var.app_code} Uptime Alert")
+
+    condition_absent {
+      duration = var.uptime_trigger_duration
+      trigger {
+        count = var.uptime_trigger_count
+      }
+    }
+
+    condition_threshold {
+      filter     = "metric.type=\"monitoring.googleapis.com/uptime_check/check_passed\" AND metric.label.check_id=\"${google_monitoring_uptime_check_config.https_uptime[0].uptime_check_id}\" AND resource.type=\"uptime_url\""
+      duration   = "60s"
+      comparison = "COMPARISON_GT"
+      aggregations {
+        alignment_period   = "1200s"
+        per_series_aligner = "ALIGN_NEXT_OLDER"
+      }
+    }
+
+  }
+
+  user_labels = {
+    app       = var.app_code
+    lifecycle = var.lifecycle_name
+  }
+
+  depends_on = [
+    google_monitoring_uptime_check_config.https_uptime
+  ]
+}
 
 
 
