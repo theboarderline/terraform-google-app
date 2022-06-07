@@ -27,8 +27,8 @@ resource "google_monitoring_uptime_check_config" "https_uptime" {
 
 
 resource "google_monitoring_alert_policy" "alert_policy" {
-  # count = !var.disabled ? 1 : 0
-  count = 0
+  count = !var.disabled ? 1 : 0
+  # count = 0
 
   project = var.gke_project_id
 
