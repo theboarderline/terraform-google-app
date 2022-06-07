@@ -116,14 +116,14 @@ variable "failover_zone" {
 variable "create_dns_zone" {
   description = "Whether Cloud DNS zone should get created"
   type        = bool
-  default     = true
+  default     = false
 }
 
 
 variable "create_record_set" {
   description = "Whether Cloud DNS record set should get created"
   type        = bool
-  default     = true
+  default     = false
 }
 
 
@@ -161,7 +161,7 @@ variable "namespaces" {
 variable "create_ip" {
   description = "Whether external IP and DNS A record should get created"
   type        = bool
-  default     = true
+  default     = false
 }
 
 
@@ -214,8 +214,8 @@ variable "notification_channel" {
 }
 
 
-variable "use_artifact_registry" {
-  description = "Whether app needs artifact registry repos for image storage"
+variable "create_registry" {
+  description = "Whether artifact registry repos should be created"
   type        = bool
   default     = false
 }
@@ -224,7 +224,7 @@ variable "use_artifact_registry" {
 variable "separate_ci" {
   description = "Whether cloudbuild triggers should build each container separately, or together and use Helm for CD"
   type        = bool
-  default     = true
+  default     = false
 }
 
 

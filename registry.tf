@@ -1,6 +1,6 @@
 
 resource "google_artifact_registry_repository" "docker_repos" {
-  count = var.use_artifact_registry ? 1 : 0
+  count = var.create_registry ? 1 : 0
 
   provider = google-beta
 
