@@ -269,4 +269,12 @@ variable "selected_regions" {
 }
 
 
+variable "create_trigger" {
+  description = "Whether Cloudbuild trigger should get created"
+  type        = bool
+  default     = false
+}
+
+
+
 

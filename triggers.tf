@@ -1,7 +1,7 @@
 
 
 resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
-  for_each = var.separate_ci ? toset(var.build_locations) : toset([])
+  for_each = var.create_trigger && var.separate_ci ? toset(var.build_locations) : toset([])
 
   project = var.app_project_id
   name    = "${var.lifecycle_name}-${each.key}-ci"
@@ -48,7 +48,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
 
 
 resource "google_cloudbuild_trigger" "cloudbuild_trigger_legacy" {
-  count = !var.separate_ci ? 1 : 0
+  count = var.create_trigger && !var.separate_ci ? 1 : 0
 
   project = var.app_project_id
   name    = "${local.app_label}-cicd"
