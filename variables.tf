@@ -276,5 +276,13 @@ variable "create_trigger" {
 }
 
 
+variable "create_buckets" {
+  description = "Whether Cloud Storage Buckets should get created"
+  type        = bool
+  default     = false
+}
+
+
+
 
 

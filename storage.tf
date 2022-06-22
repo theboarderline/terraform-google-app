@@ -1,4 +1,6 @@
 module "bucket" {
+  count = var.create_buckets ? 1 : 0
+
   source = "terraform-google-modules/cloud-storage/google//modules/simple_bucket"
 
   name       = "${local.app_label}-web-static"
@@ -15,6 +17,8 @@ module "bucket" {
 
 
 module "cleaned_bucket" {
+  count = var.create_buckets ? 1 : 0
+  
   source = "terraform-google-modules/cloud-storage/google//modules/simple_bucket"
 
   name       = "${local.app_label}-cleaned-data"
@@ -29,6 +33,8 @@ module "cleaned_bucket" {
 
  
 module "ingest_bucket" {
+  count = var.create_buckets ? 1 : 0
+
   source = "terraform-google-modules/cloud-storage/google//modules/simple_bucket"
 
   name       = "${local.app_label}-ingest"
