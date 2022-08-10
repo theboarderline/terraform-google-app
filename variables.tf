@@ -284,5 +284,3 @@ variable "create_buckets" {
 
 
 
-
-
