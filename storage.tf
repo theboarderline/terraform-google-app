@@ -3,7 +3,7 @@ module "bucket" {
 
   source = "terraform-google-modules/cloud-storage/google//modules/simple_bucket"
 
-  name       = "${local.app_label}-web-static"
+  name       = "${local.app_label}-public-content"
   project_id = var.app_project_id
   location   = var.region
 
@@ -21,7 +21,7 @@ module "cleaned_bucket" {
   
   source = "terraform-google-modules/cloud-storage/google//modules/simple_bucket"
 
-  name       = "${local.app_label}-cleaned-data"
+  name       = "${local.app_label}-clean-data"
   project_id = var.app_project_id
   location   = var.region
 
@@ -37,12 +37,8 @@ module "ingest_bucket" {
 
   source = "terraform-google-modules/cloud-storage/google//modules/simple_bucket"
 
-  name       = "${local.app_label}-ingest"
+  name       = "${local.app_label}-data-ingest"
   project_id = var.app_project_id
   location   = var.region
 
-  iam_members = var.admin != "" ? [{
-    role   = "roles/storage.objectAdmin"
-    member = var.admin
-  }] : []
 }
