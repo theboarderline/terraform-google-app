@@ -16,27 +16,27 @@ resource "helm_release" "app" {
   ]
 
   set {
-    name  = "web-app.app_code"
+    name  = "app_code"
     value = var.app_code
   }
 
   set {
-    name  = "web-app.lifecycle"
+    name  = "lifecycle"
     value = var.lifecycle_name
   }
 
   set {
-    name = "web-app.domain"
+    name = "domain"
     value = local.full_domain
   }
 
   set {
-    name = "web-app.gke_project_id"
+    name = "gke_project_id"
     value = var.gke_project_id
   }
 
   set {
-    name = "web-app.db_project_id"
+    name = "db_project_id"
     value = var.db_project_id
   }
 
