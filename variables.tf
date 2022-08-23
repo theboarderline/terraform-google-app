@@ -286,14 +286,14 @@ variable "create_buckets" {
 variable "chart_path" {
   description = "Path to application helm chart"
   type        = string
-  default     = "../helm/web-app"
+  default     = "./helm/web-app"
 }
 
 
 variable "chart_values_path" {
   description = "Path to application helm chart values files (one per lifecycle)"
   type        = string
-  default     = "../helm/values"
+  default     = "./helm/values"
 }
 
 
