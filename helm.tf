@@ -9,7 +9,6 @@ resource "helm_release" "argocd" {
 
   values = [
     "${file("${var.chart_values_path}/${var.lifecycle_name}.yaml")}",
-    "${file("${var.chart_values_path}/values.yaml")}",
   ]
 
   set {
