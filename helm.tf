@@ -2,13 +2,17 @@
 resource "helm_release" "app" {
   count = !var.disabled && var.use_helm ? 1 : 0
 
+  repository       = "https://${var.app_chart_repo}"
+  chart            = var.chart_name
+  version          = var.chart_version
+
   name             = local.namespace
   namespace        = local.namespace
-  chart            = var.chart_path
   create_namespace = true
 
   values = [
     "${file("${var.chart_values_path}/${var.lifecycle_name}.yaml")}",
+    "${file("${var.chart_values_path}/values.yaml")}",
   ]
 
   set {

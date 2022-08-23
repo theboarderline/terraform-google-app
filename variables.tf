@@ -283,10 +283,17 @@ variable "create_buckets" {
 }
 
 
-variable "chart_path" {
-  description = "Path to application helm chart"
+variable "app_chart_repo" {
+  description = "Application helm chart repo url"
   type        = string
-  default     = "./helm/web-app"
+  default     = "theboarderline.github.io/helm-charts"
+}
+
+
+variable "chart_name" {
+  description = "Name of application helm chart"
+  type        = string
+  default     = "web-app"
 }
 
 
@@ -294,6 +301,13 @@ variable "chart_values_path" {
   description = "Path to application helm chart values files (one per lifecycle)"
   type        = string
   default     = "./helm/values"
+}
+
+
+variable "chart_version" {
+  description = "Application helm chart version"
+  type        = string
+  default     = "0.3.27"
 }
 
 
