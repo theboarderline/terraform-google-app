@@ -182,7 +182,7 @@ variable "force_destroy" {
 variable "use_helm" {
   description = "Whether CICD should be deploy using helm or not"
   type        = string
-  default     = false
+  default     = true
 }
 
 
@@ -234,7 +234,7 @@ variable "included_files" {
   default     = [
     "react/**",
     "api/**",
-    "charts/web-app/**",
+    "selenium/**",
   ]
 }
 
@@ -242,7 +242,7 @@ variable "included_files" {
 variable "monitoring_suite" {
   description = "Whether monitoring resources should be created"
   type        = bool
-  default     = false
+  default     = true
 }
 
 
@@ -272,14 +272,14 @@ variable "selected_regions" {
 variable "create_trigger" {
   description = "Whether Cloudbuild trigger should get created"
   type        = bool
-  default     = false
+  default     = true
 }
 
 
 variable "create_buckets" {
   description = "Whether Cloud Storage Buckets should get created"
   type        = bool
-  default     = false
+  default     = true
 }
 
 
