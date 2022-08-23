@@ -1,5 +1,5 @@
 
-resource "helm_release" "argocd" {
+resource "helm_release" "app" {
   count = !var.disabled && var.use_helm ? 1 : 0
 
   name             = local.namespace
