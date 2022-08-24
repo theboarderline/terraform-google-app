@@ -72,8 +72,8 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
       id   = "Build-Backend"
       name = "gcr.io/kaniko-project/executor:latest"
       args = [
-        "--destination=gcr.io/${var.app_project_id}/api:$COMMIT_SHA",
-        "--destination=gcr.io/${var.app_project_id}/api:latest",
+        "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/api:$COMMIT_SHA",
+        "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/api:latest",
         "--context=./src/api",
         "--cache=true",
         "--cache-ttl=240h"
@@ -84,8 +84,8 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
       id   = "Build-Frontend"
       name = "gcr.io/kaniko-project/executor:latest"
       args = [
-        "--destination=gcr.io/${var.app_project_id}/react:$COMMIT_SHA",
-        "--destination=gcr.io/${var.app_project_id}/react:latest",
+        "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/react:$COMMIT_SHA",
+        "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/react:latest",
         "--context=./src/react",
         "--cache=true",
         "--cache-ttl=240h"
