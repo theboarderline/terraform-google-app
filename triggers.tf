@@ -96,11 +96,11 @@ resource "google_cloudbuild_trigger" "mono_triggers" {
       id = "Refresh-Images"
       name = "gcr.io/walker-cpl/helm-cd"
       env = [
-        "CLUSTER_NAME = ${var.cluster_name}"
-        "ZONE         = ${var.zone}"
-        "REGION       = ${var.region}"
-        "PROJECT      = ${var.gke_project_id}"
-        "NAMESPACE    = ${local.namespace}"
+        "CLUSTER_NAME = ${var.cluster_name}",
+        "ZONE         = ${var.zone}",
+        "REGION       = ${var.region}",
+        "PROJECT      = ${var.gke_project_id}",
+        "NAMESPACE    = ${local.namespace}",
       ]
     }
 
