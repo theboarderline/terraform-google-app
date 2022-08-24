@@ -4,7 +4,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
   for_each = var.create_trigger && var.separate_ci ? toset(var.build_locations) : toset([])
 
   project = var.app_project_id
-  name    = "${var.lifecycle_name}-${each.key}-ci"
+  name    = "${local.lifecycle_name}-${each.key}-ci"
 
   # service_account = local.cicd_service_account
   disabled       = var.disabled
@@ -16,7 +16,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
     name  = var.app_code
 
     push {
-      branch = var.lifecycle_name == "prod" ? "^main$" : "^${var.lifecycle_name}$"
+      branch = local.lifecycle_name == "prod" ? "^main$" : "^${local.lifecycle_name}$"
     }
   }
 
@@ -62,16 +62,16 @@ resource "google_cloudbuild_trigger" "cloudbuild_trigger_legacy" {
     name  = var.app_code
 
     push {
-      branch = var.lifecycle_name == "prod" ? "^main$" : "^${var.lifecycle_name}$"
+      branch = local.lifecycle_name == "prod" ? "^main$" : "^${local.lifecycle_name}$"
     }
   }
 
   filename = "cloudbuild.yaml"
 
   substitutions = {
-    _LIFECYCLE    = var.lifecycle_name
+    _LIFECYCLE    = local.lifecycle_name
     _APP_CODE     = var.app_code
-    _NAMESPACE    = "${var.lifecycle_name}-${var.app_code}"
+    _NAMESPACE    = local.namespace}
     _DOMAIN       = local.full_domain
     _GKE_PROJECT  = var.gke_project_id
     _DB_PROJECT   = var.db_project_id

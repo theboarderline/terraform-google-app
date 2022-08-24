@@ -4,7 +4,7 @@ resource "google_monitoring_uptime_check_config" "https_uptime" {
 
   project = var.gke_project_id
 
-  display_name = title("${var.lifecycle_name} ${var.app_code}")
+  display_name = title("${local.lifecycle_name} ${var.app_code}")
   timeout = "60s"
 
   selected_regions = var.selected_regions
@@ -19,7 +19,7 @@ resource "google_monitoring_uptime_check_config" "https_uptime" {
   monitored_resource {
     type = "uptime_url"
     labels = {
-      host = "${var.lifecycle_name}.${local.full_domain}"
+      host = "${local.lifecycle_name}.${local.full_domain}"
     }
   }
 
@@ -31,12 +31,12 @@ resource "google_monitoring_alert_policy" "alert_policy" {
 
   project = var.gke_project_id
 
-  display_name = title("${var.lifecycle_name} ${var.app_code} Alerts")
+  display_name = title("${local.lifecycle_name} ${var.app_code} Alerts")
   notification_channels =  ["projects/${var.gke_project_id}/notificationChannels/${var.notification_channel}"]
   combiner     = "OR"
 
   conditions {
-    display_name = title("${var.lifecycle_name} ${var.app_code} Uptime Alert")
+    display_name = title("${local.lifecycle_name} ${var.app_code} Uptime Alert")
 
     # condition_absent {
     #   duration = var.uptime_trigger_duration
@@ -60,7 +60,7 @@ resource "google_monitoring_alert_policy" "alert_policy" {
 
   user_labels = {
     app       = var.app_code
-    lifecycle = var.lifecycle_name
+    lifecycle = local.lifecycle_name
   }
 
   depends_on = [
