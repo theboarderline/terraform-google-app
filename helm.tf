@@ -44,3 +44,4 @@ resource "helm_release" "app" {
   reuse_values = true
 
 }
+
