@@ -24,14 +24,26 @@ resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
     timeout = var.trigger_timeout
 
     step {
-      id = "Build-React"
+      id = "Build-${each.key}"
       name = "gcr.io/kaniko-project/executor:latest"
       args = [
-        "--destination=gcr.io/${var.app_project_id}/${local.app_label}-images/${each.key}:$COMMIT_SHA",
-        "--destination=gcr.io/${var.app_project_id}/${local.app_label}-images/${each.key}:latest",
-        "--context=./${each.key}",
+        "--destination=gcr.io/${var.app_project_id}/${local.app_label}/${each.key}:$COMMIT_SHA",
+        "--destination=gcr.io/${var.app_project_id}/${local.app_label}/${each.key}:latest",
+        "--context=./src/${each.key}",
         "--cache=true",
         "--cache-ttl=240h"
+      ]
+    }
+
+    step {
+      id = "Deploy-${each.key}"
+      name = "gcr.io/walker-cpl/helm-cd"
+      env = [
+        "CLUSTER_NAME = ${var.cluster_name}"
+        "ZONE         = ${var.zone}"
+        "REGION       = ${var.region}"
+        "PROJECT      = ${var.gke_project_id}"
+        "NAMESPACE    = ${local.namespace}"
       ]
     }
 
