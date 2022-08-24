@@ -5,14 +5,14 @@ resource "google_monitoring_uptime_check_config" "https_uptime" {
   project = var.gke_project_id
 
   display_name = title("${local.lifecycle_name} ${var.app_code}")
-  timeout = "60s"
+  timeout      = "60s"
 
   selected_regions = var.selected_regions
 
   http_check {
-    path = "/health/"
-    port = "443"
-    use_ssl = true
+    path         = "/health/"
+    port         = "443"
+    use_ssl      = true
     validate_ssl = true
   }
 
@@ -31,9 +31,9 @@ resource "google_monitoring_alert_policy" "alert_policy" {
 
   project = var.gke_project_id
 
-  display_name = title("${local.lifecycle_name} ${var.app_code} Alerts")
-  notification_channels =  ["projects/${var.gke_project_id}/notificationChannels/${var.notification_channel}"]
-  combiner     = "OR"
+  display_name          = title("${local.lifecycle_name} ${var.app_code} Alerts")
+  notification_channels = ["projects/${var.gke_project_id}/notificationChannels/${var.notification_channel}"]
+  combiner              = "OR"
 
   conditions {
     display_name = title("${local.lifecycle_name} ${var.app_code} Uptime Alert")
@@ -46,10 +46,10 @@ resource "google_monitoring_alert_policy" "alert_policy" {
     # }
 
     condition_threshold {
-      filter     = "metric.type=\"monitoring.googleapis.com/uptime_check/check_passed\" AND metric.label.check_id=\"${google_monitoring_uptime_check_config.https_uptime[0].uptime_check_id}\" AND resource.type=\"uptime_url\""
+      filter          = "metric.type=\"monitoring.googleapis.com/uptime_check/check_passed\" AND metric.label.check_id=\"${google_monitoring_uptime_check_config.https_uptime[0].uptime_check_id}\" AND resource.type=\"uptime_url\""
       threshold_value = var.uptime_trigger_count
-      duration   = var.uptime_trigger_duration
-      comparison = "COMPARISON_GT"
+      duration        = var.uptime_trigger_duration
+      comparison      = "COMPARISON_GT"
       aggregations {
         alignment_period   = "1200s"
         per_series_aligner = "ALIGN_NEXT_OLDER"

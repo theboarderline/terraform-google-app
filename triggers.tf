@@ -24,7 +24,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
     timeout = var.trigger_timeout
 
     step {
-      id = "Build-${each.key}"
+      id   = "Build-${each.key}"
       name = "gcr.io/kaniko-project/executor:latest"
       args = [
         "--destination=gcr.io/${var.app_project_id}/${local.app_label}/${each.key}:$COMMIT_SHA",
@@ -69,7 +69,7 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
     timeout = var.trigger_timeout
 
     step {
-      id = "Build-Backend"
+      id   = "Build-Backend"
       name = "gcr.io/kaniko-project/executor:latest"
       args = [
         "--destination=gcr.io/${var.app_project_id}/api:$COMMIT_SHA",
@@ -81,7 +81,7 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
     }
 
     step {
-      id = "Build-Frontend"
+      id   = "Build-Frontend"
       name = "gcr.io/kaniko-project/executor:latest"
       args = [
         "--destination=gcr.io/${var.app_project_id}/frontend:$COMMIT_SHA",
@@ -93,7 +93,7 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
     }
 
     step {
-      id = "Refresh-Images"
+      id   = "Refresh-Images"
       name = "gcr.io/walker-cpl/helm-cd"
       env = [
         "CLUSTER_NAME = ${var.cluster_name}",

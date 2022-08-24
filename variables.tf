@@ -137,7 +137,7 @@ variable "dns_zone_name" {
 variable "ignored_files" {
   description = "List of ignored files for cloudbuild"
   type        = list(string)
-  default = []
+  default     = []
 }
 
 
@@ -154,7 +154,7 @@ variable "build_locations" {
 variable "namespaces" {
   description = "List of namespaces to make monitoring dashboards for"
   type        = list(string)
-  default = []
+  default     = []
 }
 
 
@@ -231,7 +231,7 @@ variable "separate_ci" {
 variable "included_files" {
   description = "List of included file paths to build on - only used of `separate_ci` is false"
   type        = list(string)
-  default     = [
+  default = [
     "react/**",
     "api/**",
     "selenium/**",
@@ -263,7 +263,7 @@ variable "uptime_trigger_duration" {
 variable "selected_regions" {
   description = "List of regions to use in uptime checks"
   type        = list(string)
-  default     = [
+  default = [
     "USA",
   ]
 }
