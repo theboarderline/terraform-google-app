@@ -84,8 +84,8 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
       id   = "Build-Frontend"
       name = "gcr.io/kaniko-project/executor:latest"
       args = [
-        "--destination=gcr.io/${var.app_project_id}/frontend:$COMMIT_SHA",
-        "--destination=gcr.io/${var.app_project_id}/frontend:latest",
+        "--destination=gcr.io/${var.app_project_id}/react:$COMMIT_SHA",
+        "--destination=gcr.io/${var.app_project_id}/react:latest",
         "--context=./src/react",
         "--cache=true",
         "--cache-ttl=240h"
