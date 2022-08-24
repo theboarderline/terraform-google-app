@@ -40,4 +40,6 @@ resource "helm_release" "app" {
     value = var.db_project_id
   }
 
+  wait = false
+
 }
