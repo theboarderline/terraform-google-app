@@ -45,8 +45,8 @@ resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
 
 
 
-resource "google_cloudbuild_trigger" "mono_triggers" {
-  for_each = var.create_trigger && !var.separate_ci ? 1 : 0
+resource "google_cloudbuild_trigger" "mono_trigger" {
+  count = var.create_trigger && !var.separate_ci ? 1 : 0
 
   project = var.app_project_id
   name    = "${local.lifecycle_name}-cicd"
