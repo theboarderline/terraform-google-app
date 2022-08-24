@@ -71,7 +71,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_trigger_legacy" {
   substitutions = {
     _LIFECYCLE    = local.lifecycle_name
     _APP_CODE     = var.app_code
-    _NAMESPACE    = local.namespace}
+    _NAMESPACE    = local.namespace
     _DOMAIN       = local.full_domain
     _GKE_PROJECT  = var.gke_project_id
     _DB_PROJECT   = var.db_project_id
