@@ -53,7 +53,7 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
 
   # service_account = local.cicd_service_account
   disabled       = var.disabled
-  included_files = ["${each.key}/**"]
+  included_files = ["src/**"]
   ignored_files  = var.ignored_files
 
   github {
@@ -72,8 +72,8 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
       id = "Build-Backend"
       name = "gcr.io/kaniko-project/executor:latest"
       args = [
-        "--destination=gcr.io/${var.app_project_id}/${local.app_label}/api:$COMMIT_SHA",
-        "--destination=gcr.io/${var.app_project_id}/${local.app_label}/api:latest",
+        "--destination=gcr.io/${var.app_project_id}/api:$COMMIT_SHA",
+        "--destination=gcr.io/${var.app_project_id}/api:latest",
         "--context=./src/api",
         "--cache=true",
         "--cache-ttl=240h"
