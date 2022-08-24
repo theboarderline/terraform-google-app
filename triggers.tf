@@ -95,13 +95,7 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
     step {
       id   = "Refresh-Images"
       name = "gcr.io/walker-cpl/helm-cd"
-      env = [
-        "CLUSTER_NAME=${var.cluster_name}",
-        "ZONE=${var.zone}",
-        "REGION=${var.region}",
-        "PROJECT=${var.gke_project_id}",
-        "NAMESPACE=${local.namespace}",
-      ]
+      entrypoint = "update.sh ${var.cluster_name} ${var.zone} ${var.gke_project_id} ${local.namespace} ${var.chart_version} $COMMIT_SHA"
     }
 
 
