@@ -1,13 +1,13 @@
 
 
 resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
-  for_each = var.create_trigger && var.separate_ci ? toset(var.build_locations) : toset([])
+  for_each = !var.disabled && var.create_trigger && var.separate_ci ? toset(var.build_locations) : toset([])
 
   project = var.app_project_id
   name    = "${local.lifecycle_name}-${each.key}-ci"
 
   # service_account = local.cicd_service_account
-  disabled       = var.disabled
+  disabled       = false
   included_files = ["${each.key}/**"]
   ignored_files  = var.ignored_files
 
@@ -46,13 +46,13 @@ resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
 
 
 resource "google_cloudbuild_trigger" "mono_trigger" {
-  count = var.create_trigger && !var.separate_ci ? 1 : 0
+  count = !var.disabled && var.create_trigger && !var.separate_ci ? 1 : 0
 
   project = var.app_project_id
   name    = "${local.lifecycle_name}-cicd"
 
   # service_account = local.cicd_service_account
-  disabled       = var.disabled
+  disabled       = false
   included_files = ["src/**"]
   ignored_files  = var.ignored_files
 
