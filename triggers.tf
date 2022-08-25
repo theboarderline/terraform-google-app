@@ -98,7 +98,7 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
       entrypoint = "/usr/bin/update.sh"
       args = [
         "${var.cluster_name}",
-        "${var.zone}"
+        "${var.zone}",
         "${var.gke_project_id}",
         "${local.namespace}",
         "${var.chart_version}",
