@@ -11,8 +11,8 @@ resource "helm_release" "app" {
   create_namespace = true
 
   values = [
-    "${file("${var.chart_values_path}/${local.lifecycle_name}.yaml")}",
     "${file("${var.chart_values_path}/values.yaml")}",
+    "${file("${var.chart_values_path}/${local.lifecycle_name}.yaml")}",
   ]
 
   set {
