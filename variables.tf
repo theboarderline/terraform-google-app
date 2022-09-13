@@ -134,10 +134,17 @@ variable "dns_zone_name" {
 }
 
 
+variable "included_files" {
+  description = "List of included files for cloudbuild"
+  type        = list(string)
+  default     = ["src/**"]
+}
+
+
 variable "ignored_files" {
   description = "List of ignored files for cloudbuild"
   type        = list(string)
-  default     = []
+  default     = ["src/mobile/**"]
 }
 
 
@@ -225,17 +232,6 @@ variable "separate_ci" {
   description = "Whether cloudbuild triggers should build each container separately, or together and use Helm for CD"
   type        = bool
   default     = false
-}
-
-
-variable "included_files" {
-  description = "List of included file paths to build on - only used of `separate_ci` is false"
-  type        = list(string)
-  default = [
-    "react/**",
-    "api/**",
-    "selenium/**",
-  ]
 }
 
 

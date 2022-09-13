@@ -8,7 +8,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
 
   # service_account = local.cicd_service_account
   disabled       = false
-  included_files = ["${each.key}/**"]
+  included_files = ["src/${each.key}/**"]
   ignored_files  = var.ignored_files
 
   github {
@@ -53,7 +53,7 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
 
   # service_account = local.cicd_service_account
   disabled       = false
-  included_files = ["src/**"]
+  included_files = var.included_files
   ignored_files  = var.ignored_files
 
   github {
