@@ -140,7 +140,7 @@ resource "google_monitoring_dashboard" "dashboard" {
                       "crossSeriesReducer": "REDUCE_NONE",
                       "perSeriesAligner": "ALIGN_MEAN"
                     },
-                    "filter": "metric.type=\"kubernetes.io/pod/volume/used_bytes\" resource.type=\"k8s_pod\" resource.label.\"namespace_name\"=\"${local.namespace}\" metric.label.\"volume_name\"=\"gce-volume\""
+                    "filter": "metric.type=\"kubernetes.io/pod/volume/used_bytes\" resource.type=\"k8s_pod\" resource.label.\"namespace_name\"=\"${local.namespace}\" metric.label.\"volume_name\"=\"db-volume\""
                   }
                 }
               }
