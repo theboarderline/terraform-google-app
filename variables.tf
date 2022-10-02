@@ -51,6 +51,12 @@ variable "db_project_id" {
 }
 
 
+variable "dns_project_id" {
+  description = "DNS project ID"
+  type        = string
+}
+
+
 variable "app_project_id" {
   description = "App project ID"
   type        = string
@@ -305,3 +311,12 @@ variable "chart_version" {
   type        = string
   default     = "0.3.44"
 }
+
+
+variable "secrets_list" {
+  description = "List of GSM secret names"
+  type        = list(string)
+  default     = []
+}
+
+

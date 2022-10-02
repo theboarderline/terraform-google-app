@@ -2,7 +2,7 @@
 resource "google_dns_managed_zone" "dns_zone" {
   count = local.lifecycle_name == "ops" && var.create_dns_zone ? 1 : 0
 
-  project = var.app_project_id
+  project = var.dns_project_id
 
   name     = var.dns_zone_name
   dns_name = "${var.domain}."
