@@ -52,5 +52,10 @@ resource "helm_release" "app" {
     value = !var.create_record_set
   }
 
+  set {
+    name  = "external_secrets.enabled"
+    value = !var.create_k8s_secrets
+  }
+
 }
 
