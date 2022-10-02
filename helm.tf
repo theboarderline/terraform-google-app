@@ -9,6 +9,8 @@ resource "helm_release" "app" {
   name             = local.namespace
   namespace        = local.namespace
   create_namespace = true
+  reuse_values     = true
+  wait             = false
 
   values = [
     "${file("${var.chart_values_path}/values.yaml")}",
@@ -40,8 +42,15 @@ resource "helm_release" "app" {
     value = var.db_project_id
   }
 
-  wait         = false
-  reuse_values = true
+  set {
+    name  = "ingress.bring_ip"
+    value = var.create_ip
+  }
+
+  set {
+    name  = "external_dns.enabled"
+    value = !var.create_record_set
+  }
 
 }
 

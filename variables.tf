@@ -285,6 +285,13 @@ variable "create_buckets" {
 }
 
 
+variable "secrets_list" {
+  description = "List of GSM secret names"
+  type        = list(string)
+  default     = []
+}
+
+
 variable "app_chart_repo" {
   description = "Application helm chart repo url"
   type        = string
@@ -309,14 +316,7 @@ variable "chart_values_path" {
 variable "chart_version" {
   description = "Application helm chart version"
   type        = string
-  default     = "0.3.44"
-}
-
-
-variable "secrets_list" {
-  description = "List of GSM secret names"
-  type        = list(string)
-  default     = []
+  default     = "0.3.45"
 }
 
 
