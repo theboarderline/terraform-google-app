@@ -48,6 +48,11 @@ resource "helm_release" "app" {
   }
 
   set {
+    name  = "ip_name"
+    value = google_compute_global_address.global_ip[0].name
+  }
+
+  set {
     name  = "external_dns.enabled"
     value = !var.create_record_set
   }
@@ -56,6 +61,10 @@ resource "helm_release" "app" {
     name  = "external_secrets.enabled"
     value = !var.create_k8s_secrets
   }
+
+  depends_on = [
+    google_compute_global_address.global_ip,
+  ]
 
 }
 
