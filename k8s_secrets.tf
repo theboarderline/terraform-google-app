@@ -8,7 +8,7 @@ data "google_secret_manager_secret_version" "secrets_data" {
 
 
 resource "kubernetes_secret" "app_secrets" {
-  count = !var.disabled ? 1 : 0
+  count = !var.disabled && var.create_k8s_secrets ? 1 : 0
 
   metadata {
     name      = "app-secrets"

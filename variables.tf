@@ -285,6 +285,13 @@ variable "create_buckets" {
 }
 
 
+variable "create_k8s_secrets" {
+  description = "Whether secrets should get created using the K8s TF provider"
+  type        = bool
+  default     = true
+}
+
+
 variable "secrets_list" {
   description = "List of GSM secret names"
   type        = list(string)
