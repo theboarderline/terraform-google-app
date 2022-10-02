@@ -4,7 +4,7 @@ resource "google_dns_managed_zone" "dns_zone" {
 
   project = var.dns_project_id
 
-  name     = var.dns_zone_name
+  name     = local.app_dns_zone
   dns_name = "${var.domain}."
   dnssec_config {
     state = "on"
@@ -23,9 +23,9 @@ resource "google_compute_global_address" "global_ip" {
 resource "google_dns_record_set" "dns_record_set" {
   count = var.create_ip && var.create_record_set && !var.disabled ? 1 : 0
 
-  project = var.app_project_id
+  project = var.dns_project_id
 
-  managed_zone = var.dns_zone_name
+  managed_zone = local.app_dns_zone
   name         = local.lifecycle_name == "prod" ? "${local.full_domain}." : "${local.lifecycle_name}.${local.full_domain}."
   type         = "A"
   rrdatas      = [google_compute_global_address.global_ip[0].address]

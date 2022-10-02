@@ -17,6 +17,8 @@ locals {
 
   full_domain = var.subdomain != "" ? "${var.subdomain}.${var.domain}" : var.domain
 
+  app_dns_zone = var.dns_zone != "" ? var.dns_zone : "${var.app_code}-dns-zone"
+
 }
 
 
