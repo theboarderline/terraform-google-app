@@ -97,11 +97,12 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
       name       = "gcr.io/walker-cpl/helm-cd"
       args = [
         "${var.cluster_name}",
-        "${var.zone}",
+        "${local.location}",
         "${var.gke_project_id}",
         "${local.namespace}",
         "${var.chart_version}",
         "$COMMIT_SHA",
+        "${var.regional}"
       ]
     }
 

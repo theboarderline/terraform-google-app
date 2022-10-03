@@ -3,6 +3,8 @@
 locals {
   lifecycle_name = var.lifecycle_name == "main" ? "prod" : var.lifecycle_name
 
+  location = var.regional ? var.region : var.zone
+
   namespace = "${local.lifecycle_name}-${var.app_code}"
 
   app_label = var.label == "" ? local.namespace : "${local.namespace}-${var.label}"

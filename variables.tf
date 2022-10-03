@@ -171,6 +171,13 @@ variable "namespaces" {
 }
 
 
+variable "regional" {
+  description = "Whether cluster deploying to is regional (true) or zonal (false)"
+  type        = bool
+  default     = false
+}
+
+
 variable "create_ip" {
   description = "Whether external IP and DNS A record should get created"
   type        = bool
