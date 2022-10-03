@@ -9,9 +9,7 @@ resource "kubernetes_secret" "app_secrets" {
 
   type = "Opaque"
 
-  data = merge({
-    for key, val in data.google_secret_manager_secret_version.secrets_data : key => val.secret_data
-  })
+  data = local.app_secrets_map
 
   depends_on = [
     helm_release.app,
@@ -30,8 +28,8 @@ resource "kubernetes_secret" "oauth_creds" {
   type = "Opaque"
 
   data = {
-    client_id = lookup(data.google_secret_manager_secret_version.oauth_secrets, "google-oauth-id", "")
-    client_secret = lookup(data.google_secret_manager_secret_version.oauth_secrets, "google-oauth-secret", "")
+    client_id = lookup(data.google_secret_manager_secret_version.oauth_secrets, var.oauth_secret_names[0], "")
+    client_secret = lookup(data.google_secret_manager_secret_version.oauth_secrets, var.oauth_secret_names[1], "")
   }
 
   depends_on = [
