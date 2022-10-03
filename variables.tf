@@ -370,6 +370,20 @@ variable "twilio_secret_names" {
 }
 
 
+variable "use_airtable" {
+  description = "Whether Airtable API key should be used"
+  type        = string
+  default     = false
+}
+
+
+variable "airtable_secret_name" {
+  description = "GSM secret name with Airtable API key"
+  type        = string
+  default     = "api-key"
+}
+
+
 variable "app_chart_repo" {
   description = "Application helm chart repo url"
   type        = string
