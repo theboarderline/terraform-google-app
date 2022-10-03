@@ -23,6 +23,9 @@ resource "google_monitoring_uptime_check_config" "https_uptime" {
     }
   }
 
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 
