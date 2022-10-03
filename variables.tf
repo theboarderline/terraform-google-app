@@ -392,10 +392,13 @@ variable "use_airtable" {
 }
 
 
-variable "airtable_secret_name" {
-  description = "GSM secret name with Airtable API key"
-  type        = string
-  default     = "api-key"
+variable "airtable_secret_names" {
+  description = "List of GSM secret names with Airtable credentials"
+  type        = list(string)
+  default     = [
+    "base-id",
+    "api-key",
+  ]
 }
 
 

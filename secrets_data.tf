@@ -23,10 +23,10 @@ data "google_secret_manager_secret_version" "sendgrid_secret" {
 }
 
 
-data "google_secret_manager_secret_version" "airtable_secret" {
-  count = var.use_airtable ? 1 : 0
+data "google_secret_manager_secret_version" "airtable_secrets" {
+  for_each = var.use_airtable ? toset(var.airtable_secret_names) : toset([])
 
-  secret  = var.airtable_secret_name
+  secret  = each.key
   project = var.app_project_id
 }
 
