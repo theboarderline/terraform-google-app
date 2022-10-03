@@ -26,7 +26,7 @@ data "google_secret_manager_secret_version" "sendgrid_secret" {
 data "google_secret_manager_secret_version" "airtable_secrets" {
   for_each = var.use_airtable ? toset(var.airtable_secret_names) : toset([])
 
-  secret  = each.key
+  secret  = var.lifecycle_name == "prod" ? each.key : "nonprod-${each.key}"
   project = var.app_project_id
 }
 
