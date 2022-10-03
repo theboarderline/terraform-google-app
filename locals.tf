@@ -19,7 +19,25 @@ locals {
 
   app_dns_zone = var.dns_zone_name != "" ? var.dns_zone_name : "${var.app_code}-dns-zone"
 
-}
+  initial_app_secrets_map = {
+    for key, val in data.google_secret_manager_secret_version.secrets_data : key => val.secret_data
+  }
 
+  oauth_secrets_map = {
+    for key, val in data.google_secret_manager_secret_version.oauth_secrets : key => val.secret_data
+  }
+
+  sendgrid_secret_map = {
+    for key, val in data.google_secret_manager_secret_version.sendgrid_secret : key => val.secret_data
+  }
+
+  twilio_secrets_map = {
+    for key, val in data.google_secret_manager_secret_version.twilio_secrets : key => val.secret_data
+  }
+
+  maybe_oauth_secrets = var.use_google_oauth ? merge(local.initial_app_secrets_map, local.oauth_secrets_map) : local.initial_app_secrets_map
+  maybe_sendgrid_secrets = var.use_sendgrid ? merge(local.maybe_oauth_secrets, local.sendgrid_secret_map) : local.maybe_oauth_secrets
+  app_secrets_map = var.use_twilio ? merge(local.maybe_sendgrid_secrets, local.twilio_secrets_map) : local.maybe_sendgrid_secrets
+}
 
 

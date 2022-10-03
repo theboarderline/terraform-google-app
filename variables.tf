@@ -299,6 +299,56 @@ variable "secrets_list" {
 }
 
 
+variable "use_google_oauth" {
+  description = "Whether Google Oauth credentials should be created as k8s secrets"
+  type        = string
+  default     = true
+}
+
+
+variable "oauth_secret_names" {
+  description = "List of GSM secret names with Google Oauth credentials"
+  type        = list(string)
+  default     = [
+    "google-oauth-id", 
+    "google-oauth-secret"
+  ]
+}
+
+
+variable "use_sendgrid" {
+  description = "Whether app should use twilio"
+  type        = string
+  default     = false
+}
+
+
+variable "sendgrid_secret_name" {
+  description = "GSM secret name with Sendgrid API key"
+  type        = string
+  default     = "sendgrid-key"
+}
+
+
+variable "use_twilio" {
+  description = "Whether app should use twilio"
+  type        = string
+  default     = false
+}
+
+
+variable "twilio_secret_names" {
+  description = "List of GSM secret names with Twilio credentials"
+  type        = list(string)
+  default     = [
+    "twilio-account-sid",
+    "twilio-auth-token",
+    "twilio-flex-workflow-sid",
+    "twilio-flex-workspace-id",
+  ]
+}
+
+
 variable "app_chart_repo" {
   description = "Application helm chart repo url"
   type        = string
@@ -325,5 +375,4 @@ variable "chart_version" {
   type        = string
   default     = "0.3.45"
 }
-
 
