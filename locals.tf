@@ -30,7 +30,7 @@ locals {
   }
 
   sendgrid_secret_map = {
-    for key, val in data.google_secret_manager_secret_version.sendgrid_secret : key => val.secret_data
+    var.sendgrid_secret_name = data.google_secret_manager_secret_version.sendgrid_secret[0].secret_data
   }
 
   twilio_secrets_map = {
