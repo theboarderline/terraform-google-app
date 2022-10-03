@@ -94,7 +94,7 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
 
     step {
       id         = "Update-Images"
-      name       = "gcr.io/walker-cpl/helm-cd"
+      name       = "gcr.io/walker-cpl/helm-cd:0.10.0"
       args = [
         "${var.cluster_name}",
         "${local.location}",
