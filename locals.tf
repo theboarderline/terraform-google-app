@@ -41,8 +41,13 @@ locals {
     for key, val in data.google_secret_manager_secret_version.twilio_secrets : key => val.secret_data
   }
 
+  twilio_flex_secrets_map = {
+    for key, val in data.google_secret_manager_secret_version.twilio_flex_secrets : key => val.secret_data
+  }
+
   app_secrets_map = merge(local.initial_app_secrets_map, local.oauth_secrets_map,
-                          local.sendgrid_secret_map, local.airtable_secret_map, local.twilio_secrets_map)
+                          local.sendgrid_secret_map, local.airtable_secret_map,
+                          local.twilio_secrets_map, local.twilio_flex_secrets_map)
 }
 
 

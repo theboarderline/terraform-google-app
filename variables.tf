@@ -338,7 +338,7 @@ variable "oauth_secret_names" {
 
 
 variable "use_sendgrid" {
-  description = "Whether app should use twilio"
+  description = "Whether app should use sendgrid"
   type        = string
   default     = false
 }
@@ -364,6 +364,21 @@ variable "twilio_secret_names" {
   default     = [
     "twilio-account-sid",
     "twilio-auth-token",
+  ]
+}
+
+
+variable "use_twilio_flex" {
+  description = "Whether app should use twilio flex"
+  type        = string
+  default     = false
+}
+
+
+variable "twilio_flex_secret_names" {
+  description = "List of GSM secret names with Twilio flex credentials"
+  type        = list(string)
+  default     = [
     "twilio-flex-workflow-sid",
     "twilio-flex-workspace-id",
   ]

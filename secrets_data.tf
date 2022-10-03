@@ -39,3 +39,11 @@ data "google_secret_manager_secret_version" "twilio_secrets" {
 }
 
 
+data "google_secret_manager_secret_version" "twilio_flex_secrets" {
+  for_each = var.use_twilio_flex ? toset(var.twilio_flex_secret_names) : toset([])
+
+  secret  = each.key
+  project = var.app_project_id
+}
+
+
