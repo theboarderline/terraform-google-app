@@ -1,6 +1,6 @@
 
 data "google_secret_manager_secret_version" "secrets_data" {
-  for_each = var.use_django ? toset(var.secrets_list, [var.django_secret_name]) : toset(var.secrets_list)
+  for_each = var.use_django ? toset(concat(var.secrets_list, [var.django_secret_name])) : toset(var.secrets_list)
 
   secret  = each.key
   project = var.app_project_id
