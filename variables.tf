@@ -299,6 +299,20 @@ variable "secrets_list" {
 }
 
 
+variable "use_django" {
+  description = "Whether Django key should be added k8s secret"
+  type        = string
+  default     = true
+}
+
+
+variable "django_secret_name" {
+  description = "GSM secret name with Django Key in it"
+  type        = string
+  default     = "django-key"
+}
+
+
 variable "use_google_oauth" {
   description = "Whether Google Oauth credentials should be created as k8s secrets"
   type        = string
