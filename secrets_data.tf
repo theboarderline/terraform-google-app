@@ -23,6 +23,14 @@ data "google_secret_manager_secret_version" "sendgrid_secret" {
 }
 
 
+data "google_secret_manager_secret_version" "airtable_secret" {
+  count = var.use_airtable ? 1 : 0
+
+  secret  = var.airtable_secret_name
+  project = var.app_project_id
+}
+
+
 data "google_secret_manager_secret_version" "twilio_secrets" {
   for_each = var.use_twilio ? toset(var.twilio_secret_names) : toset([])
 

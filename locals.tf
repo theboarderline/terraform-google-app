@@ -33,12 +33,16 @@ locals {
     (var.sendgrid_secret_name) = var.use_sendgrid ? data.google_secret_manager_secret_version.sendgrid_secret[0].secret_data : ""
   }
 
+  airtable_secret_map = {
+    (var.airtable_secret_name) = var.use_airtable ? data.google_secret_manager_secret_version.airtable_secret[0].secret_data : ""
+  }
+
   twilio_secrets_map = {
     for key, val in data.google_secret_manager_secret_version.twilio_secrets : key => val.secret_data
   }
 
   app_secrets_map = merge(local.initial_app_secrets_map, local.oauth_secrets_map,
-                          local.sendgrid_secret_map, local.twilio_secrets_map)
+                          local.sendgrid_secret_map, local.airtable_secret_map, local.twilio_secrets_map)
 }
 
 
