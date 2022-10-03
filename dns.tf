@@ -26,7 +26,7 @@ resource "google_dns_record_set" "dns_record_set" {
   project = var.dns_project_id
 
   managed_zone = local.app_dns_zone
-  name         = local.lifecycle_name == "prod" ? "${local.full_domain}." : "${local.lifecycle_name}.${local.full_domain}."
+  name         = local.final_domain
   type         = "A"
   rrdatas      = [google_compute_global_address.global_ip[0].address]
   ttl          = 86400
