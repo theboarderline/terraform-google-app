@@ -8,7 +8,7 @@ data "google_secret_manager_secret_version" "secrets_data" {
 
 
 data "google_secret_manager_secret_version" "oauth_secrets" {
-  for_each = toset(var.oauth_secret_names)
+  for_each = var.use_google_oauth ? toset(var.oauth_secret_names) : toset([])
 
   secret  = each.key
   project = var.app_project_id
@@ -24,7 +24,7 @@ data "google_secret_manager_secret_version" "sendgrid_secret" {
 
 
 data "google_secret_manager_secret_version" "twilio_secrets" {
-  for_each = toset(var.twilio_secret_names)
+  for_each = var.use_twilio ? toset(var.twilio_secret_names) : toset([])
 
   secret  = each.key
   project = var.app_project_id
