@@ -43,6 +43,11 @@ resource "helm_release" "app" {
   }
 
   set {
+    name  = "oauth.google.enabled"
+    value = var.use_google_oauth
+  }
+
+  set {
     name  = "ingress.bring_ip"
     value = var.create_ip
   }
