@@ -17,7 +17,7 @@ locals {
 
   cicd_service_account = "projects/${var.app_project_id}/serviceAccounts/${local.namespace}-cicd@${var.app_project_id}.iam.gserviceaccount.com"
 
-  full_domain = var.subdomain != "" ? "${var.subdomain}.${var.domain}" : var.domain
+  full_domain  = var.subdomain != "" ? "${var.subdomain}.${var.domain}" : var.domain
   final_domain = local.lifecycle_name == "prod" ? "${local.full_domain}." : "${local.lifecycle_name}.${local.full_domain}."
 
   app_dns_zone = var.dns_zone_name != "" ? var.dns_zone_name : "${var.app_code}-dns-zone"
@@ -47,8 +47,8 @@ locals {
   }
 
   app_secrets_map = merge(local.initial_app_secrets_map, local.oauth_secrets_map,
-                          local.sendgrid_secret_map, local.airtable_secrets_map,
-                          local.twilio_secrets_map, local.twilio_flex_secrets_map)
+    local.sendgrid_secret_map, local.airtable_secrets_map,
+  local.twilio_secrets_map, local.twilio_flex_secrets_map)
 }
 
 

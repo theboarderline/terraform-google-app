@@ -30,11 +30,12 @@ module "ingest_bucket" {
 
 
 resource "google_storage_bucket" "backend_bucket" {
+  project       = var.app_project_id
   name          = "${local.app_label}-backend-bucket"
   location      = var.region
   force_destroy = var.lifecycle_name != "prod"
 
-  public_access_prevention = "enforced"
+  public_access_prevention    = "enforced"
   uniform_bucket_level_access = false
 
 }

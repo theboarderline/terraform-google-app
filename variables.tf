@@ -330,8 +330,8 @@ variable "use_google_oauth" {
 variable "oauth_secret_names" {
   description = "List of GSM secret names with Google Oauth credentials"
   type        = list(string)
-  default     = [
-    "google-oauth-id", 
+  default = [
+    "google-oauth-id",
     "google-oauth-secret"
   ]
 }
@@ -361,7 +361,7 @@ variable "use_twilio" {
 variable "twilio_secret_names" {
   description = "List of GSM secret names with Twilio credentials"
   type        = list(string)
-  default     = [
+  default = [
     "twilio-account-sid",
     "twilio-auth-token",
   ]
@@ -378,7 +378,7 @@ variable "use_twilio_flex" {
 variable "twilio_flex_secret_names" {
   description = "List of GSM secret names with Twilio flex credentials"
   type        = list(string)
-  default     = [
+  default = [
     "twilio-flex-workflow-sid",
     "twilio-flex-workspace-id",
   ]
@@ -395,7 +395,7 @@ variable "use_airtable" {
 variable "airtable_secret_names" {
   description = "List of GSM secret names with Airtable credentials"
   type        = list(string)
-  default     = [
+  default = [
     "base-id",
     "api-key",
   ]

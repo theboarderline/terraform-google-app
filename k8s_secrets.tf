@@ -28,7 +28,7 @@ resource "kubernetes_secret" "oauth_creds" {
   type = "Opaque"
 
   data = {
-    "client_id" = lookup(data.google_secret_manager_secret_version.oauth_secrets, var.oauth_secret_names[0], {}).secret_data
+    "client_id"     = lookup(data.google_secret_manager_secret_version.oauth_secrets, var.oauth_secret_names[0], {}).secret_data
     "client_secret" = lookup(data.google_secret_manager_secret_version.oauth_secrets, var.oauth_secret_names[1], {}).secret_data
   }
 
