@@ -17,18 +17,6 @@ module "bucket" {
 }
 
 
-module "ingest_bucket" {
-  count = var.create_buckets ? 1 : 0
-
-  source = "terraform-google-modules/cloud-storage/google//modules/simple_bucket"
-
-  name       = "${local.app_label}-data-ingest"
-  project_id = var.app_project_id
-  location   = var.region
-
-}
-
-
 resource "google_storage_bucket" "backend_bucket" {
   project       = var.app_project_id
   name          = "${local.app_label}-backend-bucket"
