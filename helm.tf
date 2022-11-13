@@ -43,6 +43,11 @@ resource "helm_release" "app" {
   }
 
   set {
+    name  = "google.storage.bucket_name"
+    value = "${local.app_label}-backend-bucket"
+  }
+
+  set {
     name  = "oauth.google.enabled"
     value = var.use_google_oauth
   }

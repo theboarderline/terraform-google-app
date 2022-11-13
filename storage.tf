@@ -1,3 +1,4 @@
+
 module "bucket" {
   count = var.create_buckets ? 1 : 0
 
@@ -16,22 +17,6 @@ module "bucket" {
 }
 
 
-module "cleaned_bucket" {
-  count = var.create_buckets ? 1 : 0
-
-  source = "terraform-google-modules/cloud-storage/google//modules/simple_bucket"
-
-  name       = "${local.app_label}-clean-data"
-  project_id = var.app_project_id
-  location   = var.region
-
-  # iam_members = var.admin != "" ? [{
-  #   role   = "roles/storage.objectAdmin"
-  #   member = var.admin
-  # }] : []
-}
-
-
 module "ingest_bucket" {
   count = var.create_buckets ? 1 : 0
 
@@ -40,5 +25,16 @@ module "ingest_bucket" {
   name       = "${local.app_label}-data-ingest"
   project_id = var.app_project_id
   location   = var.region
+
+}
+
+
+resource "google_storage_bucket" "backend_bucket" {
+  name          = "${local.app_label}-backend-bucket"
+  location      = var.region
+  force_destroy = var.lifecycle_name != "prod"
+
+  public_access_prevention = "enforced"
+  uniform_bucket_level_access = false
 
 }
