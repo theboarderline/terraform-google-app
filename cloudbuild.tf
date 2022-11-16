@@ -68,17 +68,44 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
   build {
     timeout = var.trigger_timeout
 
-    step {
-      id   = "Build-Backend"
-      name = "gcr.io/kaniko-project/executor:latest"
-      args = [
-        "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/api:$COMMIT_SHA",
-        "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/api:latest",
-        "--context=./src/api",
-        "--cache=true",
-        "--cache-ttl=240h"
-      ]
+    dynamic "step" {
+      for_each = toset(var.build_locations)
+      content {
+        id   = "Build-${step.value}"
+        name = "gcr.io/kaniko-project/executor:latest"
+        args = [
+          "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}:$COMMIT_SHA",
+          "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}:latest",
+          "--context=./src/${step.value}",
+          "--cache=true",
+          "--cache-ttl=240h"
+        ]
+      }
     }
+
+#    step {
+#      id   = "Build-Backend"
+#      name = "gcr.io/kaniko-project/executor:latest"
+#      args = [
+#        "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/api:$COMMIT_SHA",
+#        "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/api:latest",
+#        "--context=./src/api",
+#        "--cache=true",
+#        "--cache-ttl=240h"
+#      ]
+#    }
+#
+#    step {
+#      id   = "Build-Frontend"
+#      name = "gcr.io/kaniko-project/executor:latest"
+#      args = [
+#        "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/react:$COMMIT_SHA",
+#        "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/react:latest",
+#        "--context=./src/react",
+#        "--cache=true",
+#        "--cache-ttl=240h"
+#      ]
+#    }
 
     step {
       id   = "Build-Frontend"
