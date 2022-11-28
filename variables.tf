@@ -84,8 +84,8 @@ variable "github_owner" {
 }
 
 
-variable "admin" {
-  description = "GCP Bucket Admin"
+variable "admin_email" {
+  description = "App Admin email"
   type        = string
   default     = ""
 }

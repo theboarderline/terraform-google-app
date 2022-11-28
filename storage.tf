@@ -18,6 +18,8 @@ module "bucket" {
 
 
 resource "google_storage_bucket" "backend_bucket" {
+  count = var.create_buckets ? 1 : 0
+
   project       = var.app_project_id
   name          = "${local.app_label}-backend-bucket"
   location      = var.region
