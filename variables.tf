@@ -87,7 +87,7 @@ variable "github_owner" {
 variable "admin_email" {
   description = "App Admin email"
   type        = string
-  default     = ""
+  default     = "wnobrien@lakegames.us"
 }
 
 
