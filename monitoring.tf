@@ -2,6 +2,7 @@
 resource "google_monitoring_notification_channel" "email" {
   count = !var.disabled && var.monitoring_suite ? 1 : 0
 
+  project      = var.gke_project_id
   display_name = "${local.lifecycle_name} ${var.app_code} Notification Channel"
   type         = "email"
   labels = {
