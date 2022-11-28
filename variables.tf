@@ -230,7 +230,7 @@ variable "trigger_timeout" {
 variable "notification_channel" {
   description = "List of notification channels for alerts"
   type        = string
-  default     = "4610371196665423148"
+  default     = ""
 }
 
 
@@ -426,6 +426,6 @@ variable "chart_values_path" {
 variable "chart_version" {
   description = "Application helm chart version"
   type        = string
-  default     = "0.3.55"
+  default     = "0.3.56"
 }
 
