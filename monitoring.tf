@@ -48,7 +48,7 @@ resource "google_monitoring_alert_policy" "alert_policy" {
   project = var.gke_project_id
 
   display_name          = title("${local.lifecycle_name} ${var.app_code} Alerts")
-  notification_channels = ["projects/${var.gke_project_id}/notificationChannels/${var.notification_channel}"]
+  notification_channels = [google_monitoring_notification_channel.email[0].name]
   combiner              = "OR"
 
   conditions {
@@ -80,7 +80,8 @@ resource "google_monitoring_alert_policy" "alert_policy" {
   }
 
   depends_on = [
-    google_monitoring_uptime_check_config.https_uptime
+    google_monitoring_notification_channel.email,
+    google_monitoring_uptime_check_config.https_uptime,
   ]
 }
 
