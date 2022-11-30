@@ -368,6 +368,23 @@ variable "twilio_secret_names" {
 }
 
 
+variable "use_wiseagent" {
+  description = "Whether app should use Wise Agent"
+  type        = string
+  default     = false
+}
+
+
+variable "wiseagent_secret_names" {
+  description = "List of GSM secret names with WiseAgent credentials"
+  type        = list(string)
+  default = [
+    "wise-agent-auth-token",
+    "wise-agent-key",
+  ]
+}
+
+
 variable "use_twilio_flex" {
   description = "Whether app should use twilio flex"
   type        = string
