@@ -72,6 +72,11 @@ resource "helm_release" "app" {
     value = !var.create_k8s_secrets
   }
 
+  set {
+    name  = "wiseagent.enabled"
+    value = var.use_wiseagent
+  }
+
   depends_on = [
     google_compute_global_address.global_ip,
   ]
