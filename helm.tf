@@ -77,6 +77,11 @@ resource "helm_release" "app" {
     value = var.use_wiseagent
   }
 
+  set {
+    name  = "crm.enabled"
+    value = var.use_crm
+  }
+
   depends_on = [
     google_compute_global_address.global_ip,
   ]

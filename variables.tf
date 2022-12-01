@@ -337,6 +337,13 @@ variable "oauth_secret_names" {
 }
 
 
+variable "use_crm" {
+  description = "Whether CRM service should be deployed"
+  type        = string
+  default     = false
+}
+
+
 variable "use_sendgrid" {
   description = "Whether app should use sendgrid"
   type        = string

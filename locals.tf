@@ -22,6 +22,8 @@ locals {
 
   app_dns_zone = var.dns_zone_name != "" ? var.dns_zone_name : "${var.app_code}-dns-zone"
 
+  build_locations = var.use_crm ? concat(var.build_locations, ["crm"]) : var.build_locations
+
   initial_app_secrets_map = {
     for key, val in data.google_secret_manager_secret_version.secrets_data : key => val.secret_data
   }
