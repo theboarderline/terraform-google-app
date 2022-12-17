@@ -32,6 +32,10 @@ locals {
     for key, val in data.google_secret_manager_secret_version.oauth_secrets : key => val.secret_data
   }
 
+  jwt_secret_map = {
+    (var.jwt_secret_name) = var.use_jwt ? data.google_secret_manager_secret_version.jwt_secret[0].secret_data : ""
+  }
+
   sendgrid_secret_map = {
     (var.sendgrid_secret_name) = var.use_sendgrid ? data.google_secret_manager_secret_version.sendgrid_secret[0].secret_data : ""
   }
@@ -52,10 +56,11 @@ locals {
     for key, val in data.google_secret_manager_secret_version.wiseagent_secrets : key => val.secret_data
   }
 
-  app_secrets_map = merge(local.initial_app_secrets_map, local.oauth_secrets_map,
-    local.sendgrid_secret_map, local.airtable_secrets_map,
-  local.twilio_secrets_map, local.twilio_flex_secrets_map, local.wiseagent_secrets_map
-)
+  app_secrets_map = merge(
+    local.initial_app_secrets_map, local.oauth_secrets_map,
+    local.sendgrid_secret_map, local.airtable_secrets_map, local.twilio_secrets_map, 
+    local.twilio_flex_secrets_map, local.wiseagent_secrets_map, local.jwt_secret_map
+  )
 }
 
 

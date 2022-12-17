@@ -6,6 +6,13 @@ data "google_secret_manager_secret_version" "secrets_data" {
   project = var.app_project_id
 }
 
+data "google_secret_manager_secret_version" "jwt_secret" {
+  count = var.use_jwt ? 1 : 0
+
+  secret  = var.jwt_secret_name
+  project = var.app_project_id
+}
+
 
 data "google_secret_manager_secret_version" "oauth_secrets" {
   for_each = var.use_google_oauth ? toset(var.oauth_secret_names) : toset([])

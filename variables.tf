@@ -344,6 +344,20 @@ variable "use_crm" {
 }
 
 
+variable "use_jwt" {
+  description = "Whether JWT auth is used and a secret key should be pulled"
+  type        = string
+  default     = false
+}
+
+
+variable "jwt_secret_name" {
+  description = "Name of secret key in GSM"
+  type        = string
+  default     = "secret-key"
+}
+
+
 variable "use_sendgrid" {
   description = "Whether app should use sendgrid"
   type        = string
