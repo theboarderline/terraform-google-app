@@ -450,6 +450,6 @@ variable "chart_values_path" {
 variable "chart_version" {
   description = "Application helm chart version"
   type        = string
-  default     = "0.3.59"
+  default     = "0.3.60"
 }
 
