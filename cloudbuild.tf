@@ -25,7 +25,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
 
     step {
       id   = "Build-${each.key}"
-      name = "gcr.io/kaniko-project/executor:latest"
+      name = "gcr.io/kaniko-project/executor:v1.6.0"
       args = [
         "--destination=gcr.io/${var.app_project_id}/${local.app_label}/${each.key}:$COMMIT_SHA",
         "--destination=gcr.io/${var.app_project_id}/${local.app_label}/${each.key}:latest",
@@ -72,7 +72,7 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
       for_each = toset(distinct(local.build_locations))
       content {
         id   = "Build-${step.value}"
-        name = "gcr.io/kaniko-project/executor:latest"
+        name = "gcr.io/kaniko-project/executor:v1.6.0"
         args = [
           "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}:$COMMIT_SHA",
           "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}:latest",
