@@ -36,3 +36,4 @@ resource "google_dns_record_set" "dns_record_set" {
     google_compute_global_address.global_ip,
   ]
 }
+
