@@ -372,6 +372,20 @@ variable "sendgrid_secret_name" {
 }
 
 
+variable "use_openai" {
+  description = "Whether app should use OpenAI"
+  type        = string
+  default     = false
+}
+
+
+variable "openai_secret_name" {
+  description = "GSM secret name with OpenAI API key"
+  type        = string
+  default     = "openai-key"
+}
+
+
 variable "use_twilio" {
   description = "Whether app should use twilio"
   type        = string
