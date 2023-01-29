@@ -25,7 +25,7 @@ resource "google_storage_bucket" "backend_bucket" {
   location      = var.region
   force_destroy = var.lifecycle_name != "prod"
 
-#  public_access_prevention    = "enforced"
+  public_access_prevention    = "enforced"
   uniform_bucket_level_access = false
 
 }
