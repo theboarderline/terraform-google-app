@@ -22,25 +22,8 @@ locals {
 
   app_dns_zone = var.dns_zone_name != "" ? var.dns_zone_name : "${var.app_code}-dns-zone"
 
-  build_locations = var.use_crm ? concat(var.build_locations, ["crm"]) : var.build_locations
-
-
-  key_content = var.use_django ? trim(
-    replace(
-      replace(
-        replace(
-          replace(
-            jsonencode(
-              base64decode(google_service_account_key.key[0].private_key)
-            )
-          , "\\\"", "\"")
-        , "\\\\n", "\\\\N")
-      , "\\n", "")
-    , "\\\\N", "\\n")
-  , "\"") : ""
-
   key_secret_map = {
-    service-account-key = local.key_content
+    "credentials.json" = !var.disabled && var.use_django ? base64decode(google_service_account_key.key[0].private_key) : ""
   }
 
   initial_app_secrets_map = {
