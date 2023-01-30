@@ -69,7 +69,7 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
     timeout = var.trigger_timeout
 
     dynamic "step" {
-      for_each = toset(distinct(local.build_locations))
+      for_each = toset(distinct(var.build_locations))
       content {
         id   = "Build-${step.value}"
         name = "gcr.io/kaniko-project/executor:v1.6.0"
