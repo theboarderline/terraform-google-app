@@ -7,6 +7,13 @@ variable "label" {
 }
 
 
+variable "service_account" {
+  description = "Service account used for the workload"
+  type        = string
+  default     = ""
+}
+
+
 variable "app_code" {
   description = "App team code"
   type        = string

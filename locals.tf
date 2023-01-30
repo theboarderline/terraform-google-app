@@ -24,6 +24,25 @@ locals {
 
   build_locations = var.use_crm ? concat(var.build_locations, ["crm"]) : var.build_locations
 
+
+  key_content = var.use_django ? trim(
+    replace(
+      replace(
+        replace(
+          replace(
+            jsonencode(
+              base64decode(google_service_account_key.key[0].private_key)
+            )
+          , "\\\"", "\"")
+        , "\\\\n", "\\\\N")
+      , "\\n", "")
+    , "\\\\N", "\\n")
+  , "\"") : ""
+
+  key_secret_map = {
+    service-account-key = local.key_content
+  }
+
   initial_app_secrets_map = {
     for key, val in data.google_secret_manager_secret_version.secrets_data : key => val.secret_data
   }
@@ -61,7 +80,7 @@ locals {
   }
 
   app_secrets_map = merge(
-    local.initial_app_secrets_map, local.oauth_secrets_map,
+    local.initial_app_secrets_map, local.oauth_secrets_map, local.key_secret_map,
     local.sendgrid_secret_map, local.airtable_secrets_map, local.twilio_secrets_map, 
     local.twilio_flex_secrets_map, local.wiseagent_secrets_map, local.jwt_secret_map, local.openai_secret_map
   )
