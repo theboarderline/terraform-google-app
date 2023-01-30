@@ -4,7 +4,7 @@ resource "time_rotating" "mykey_rotation" {
 }
 
 resource "google_service_account_key" "key" {
-  count = var.use_django != "" ? 1 : 0
+  count = !var.disabled && var.use_django != "" ? 1 : 0
 
   service_account_id = var.service_account
 
