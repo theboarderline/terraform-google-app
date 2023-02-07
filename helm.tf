@@ -48,6 +48,11 @@ resource "helm_release" "app" {
   }
 
   set {
+    name  = "google.key"
+    value = var.use_django
+  }
+
+  set {
     name  = "oauth.google.enabled"
     value = var.use_google_oauth
   }

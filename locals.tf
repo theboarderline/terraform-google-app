@@ -22,10 +22,6 @@ locals {
 
   app_dns_zone = var.dns_zone_name != "" ? var.dns_zone_name : "${var.app_code}-dns-zone"
 
-  key_secret_map = {
-    "credentials.json" = !var.disabled && var.use_django ? base64decode(google_service_account_key.key[0].private_key) : ""
-  }
-
   initial_app_secrets_map = {
     for key, val in data.google_secret_manager_secret_version.secrets_data : key => val.secret_data
   }
@@ -63,7 +59,7 @@ locals {
   }
 
   app_secrets_map = merge(
-    local.initial_app_secrets_map, local.oauth_secrets_map, local.key_secret_map,
+    local.initial_app_secrets_map, local.oauth_secrets_map,
     local.sendgrid_secret_map, local.airtable_secrets_map, local.twilio_secrets_map, 
     local.twilio_flex_secrets_map, local.wiseagent_secrets_map, local.jwt_secret_map, local.openai_secret_map
   )
