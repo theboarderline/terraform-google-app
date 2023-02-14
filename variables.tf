@@ -327,6 +327,20 @@ variable "django_secret_name" {
 }
 
 
+variable "use_gmaps" {
+  description = "Whether Google Maps key should be added k8s secret"
+  type        = string
+  default     = false
+}
+
+
+variable "gmaps_secret_name" {
+  description = "GSM secret name with Google Maps Key in it"
+  type        = string
+  default     = "maps-key"
+}
+
+
 variable "use_google_oauth" {
   description = "Whether Google Oauth credentials should be created as k8s secrets"
   type        = string

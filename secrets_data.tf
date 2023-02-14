@@ -6,6 +6,14 @@ data "google_secret_manager_secret_version" "secrets_data" {
   project = var.app_project_id
 }
 
+data "google_secret_manager_secret_version" "gmaps_secret" {
+  count = var.use_gmaps ? 1 : 0
+
+  secret  = var.gmaps_secret_name
+  project = var.app_project_id
+}
+
+
 data "google_secret_manager_secret_version" "jwt_secret" {
   count = var.use_jwt ? 1 : 0
 

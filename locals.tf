@@ -30,6 +30,10 @@ locals {
     for key, val in data.google_secret_manager_secret_version.oauth_secrets : key => val.secret_data
   }
 
+  gmaps_secret_map = {
+    (var.gmaps_secret_name) = var.use_gmaps ? data.google_secret_manager_secret_version.gmaps_secret[0].secret_data : ""
+  }
+
   jwt_secret_map = {
     (var.jwt_secret_name) = var.use_jwt ? data.google_secret_manager_secret_version.jwt_secret[0].secret_data : ""
   }
@@ -59,7 +63,7 @@ locals {
   }
 
   app_secrets_map = merge(
-    local.initial_app_secrets_map, local.oauth_secrets_map,
+    local.initial_app_secrets_map, local.oauth_secrets_map, local.gmaps_secret_map,
     local.sendgrid_secret_map, local.airtable_secrets_map, local.twilio_secrets_map, 
     local.twilio_flex_secrets_map, local.wiseagent_secrets_map, local.jwt_secret_map, local.openai_secret_map
   )
