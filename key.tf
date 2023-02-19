@@ -8,7 +8,6 @@ resource "time_rotating" "key_rotation" {
 resource "google_service_account_key" "key" {
   count = !var.disabled && var.use_django ? 1 : 0
 
-  project            = var.gcp_project_id
   service_account_id = var.service_account
 
   keepers = {
