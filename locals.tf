@@ -64,7 +64,7 @@ locals {
 
   app_secrets_map = merge(
     local.initial_app_secrets_map, local.oauth_secrets_map, local.gmaps_secret_map,
-    local.sendgrid_secret_map, local.airtable_secrets_map, local.twilio_secrets_map, 
+    local.sendgrid_secret_map, local.airtable_secrets_map, local.twilio_secrets_map,
     local.twilio_flex_secrets_map, local.wiseagent_secrets_map, local.jwt_secret_map, local.openai_secret_map
   )
 }

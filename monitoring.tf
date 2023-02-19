@@ -6,7 +6,7 @@ resource "google_monitoring_notification_channel" "email" {
   display_name = "${local.lifecycle_name} ${var.app_code} Notification Channel"
   type         = "email"
   labels = {
-      email_address = var.admin_email
+    email_address = var.admin_email
   }
   force_delete = false
 }
