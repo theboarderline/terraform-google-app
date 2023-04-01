@@ -502,3 +502,21 @@ variable "chart_version" {
   default     = "0.3.87"
 }
 
+
+variable "kaniko_version" {
+  description = "Kaniko version tag used in CI"
+  type        = string
+  default     = "v1.9.3"
+}
+
+
+variable "kaniko_extra_args" {
+  description = "Kaniko args used to specify extra CI build details"
+  type        = list(string)
+  default     = [
+    "--snapshotMode=redo",
+    "--cache=true",
+    "--cache-ttl=720h"
+  ]
+}
+

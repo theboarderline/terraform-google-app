@@ -25,15 +25,12 @@ resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
 
     step {
       id   = "Build-${each.key}"
-      name = "gcr.io/kaniko-project/executor:v1.9.2"
-      args = [
-        "--destination=gcr.io/${var.app_project_id}/${local.app_label}/${each.key}:$COMMIT_SHA",
-        "--destination=gcr.io/${var.app_project_id}/${local.app_label}/${each.key}:latest",
+      name = "gcr.io/kaniko-project/executor:${var.kaniko_version}"
+      args = concat([
+        "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}:$COMMIT_SHA",
+        "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}:latest",
         "--context=./src/${each.key}",
-        "--snapshotMode=redo",
-        "--cache=true",
-        "--cache-ttl=240h"
-      ]
+      ], var.kaniko_extra_args)
     }
 
     options {
@@ -43,7 +40,6 @@ resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
   }
 
 }
-
 
 
 resource "google_cloudbuild_trigger" "mono_trigger" {
@@ -73,14 +69,12 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
       for_each = toset(distinct(var.build_locations))
       content {
         id   = "Build-${step.value}"
-        name = "gcr.io/kaniko-project/executor:v1.6.0"
-        args = [
+        name = "gcr.io/kaniko-project/executor:${var.kaniko_version}"
+        args = concat([
           "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}:$COMMIT_SHA",
           "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}:latest",
           "--context=./src/${step.value}",
-          "--cache=true",
-          "--cache-ttl=240h"
-        ]
+        ], var.kaniko_extra_args)
       }
     }
 
