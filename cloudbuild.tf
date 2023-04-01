@@ -25,11 +25,12 @@ resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
 
     step {
       id   = "Build-${each.key}"
-      name = "gcr.io/kaniko-project/executor:v1.6.0"
+      name = "gcr.io/kaniko-project/executor:v1.9.2"
       args = [
         "--destination=gcr.io/${var.app_project_id}/${local.app_label}/${each.key}:$COMMIT_SHA",
         "--destination=gcr.io/${var.app_project_id}/${local.app_label}/${each.key}:latest",
         "--context=./src/${each.key}",
+        "--snapshotMode=redo",
         "--cache=true",
         "--cache-ttl=240h"
       ]
