@@ -83,6 +83,11 @@ resource "helm_release" "app" {
   }
 
   set {
+    name  = "attom.enabled"
+    value = var.use_attom
+  }
+
+  set {
     name  = "crm.enabled"
     value = var.use_crm
   }

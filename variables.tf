@@ -365,6 +365,20 @@ variable "use_crm" {
 }
 
 
+variable "use_attom" {
+  description = "Whether ATTOM Data API key should be used"
+  type        = string
+  default     = false
+}
+
+
+variable "attom_secret_name" {
+  description = "Name of ATTOM Data api key secret in GSM"
+  type        = string
+  default     = "attom-data-api-key"
+}
+
+
 variable "use_jwt" {
   description = "Whether JWT auth is used and a secret key should be pulled"
   type        = string
