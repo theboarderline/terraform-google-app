@@ -88,6 +88,11 @@ resource "helm_release" "app" {
   }
 
   set {
+    name  = "openai.enabled"
+    value = var.use_openai
+  }
+
+  set {
     name  = "crm.enabled"
     value = var.use_crm
   }
