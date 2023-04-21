@@ -365,6 +365,20 @@ variable "use_crm" {
 }
 
 
+variable "use_realty_mole" {
+  description = "Whether Realty Mole API key should be used"
+  type        = string
+  default     = false
+}
+
+
+variable "realty_mole_secret_name" {
+  description = "Name of Realty Mole api key secret in GSM"
+  type        = string
+  default     = "realty-mole-api-key"
+}
+
+
 variable "use_attom" {
   description = "Whether ATTOM Data API key should be used"
   type        = string

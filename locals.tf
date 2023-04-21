@@ -58,6 +58,10 @@ locals {
     for key, val in data.google_secret_manager_secret_version.twilio_flex_secrets : key => val.secret_data
   }
 
+  realty_mole_secret_map = {
+    (var.realty_mole_secret_name) = var.use_realty_mole ? data.google_secret_manager_secret_version.realty_mole_secret[0].secret_data : ""
+  }
+
   attom_secret_map = {
     (var.attom_secret_name) = var.use_attom ? data.google_secret_manager_secret_version.attom_secret[0].secret_data : ""
   }
@@ -68,7 +72,7 @@ locals {
 
   app_secrets_map = merge(
     local.initial_app_secrets_map, local.oauth_secrets_map, local.gmaps_secret_map, local.attom_secret_map,
-    local.sendgrid_secret_map, local.airtable_secrets_map, local.twilio_secrets_map,
+    local.sendgrid_secret_map, local.airtable_secrets_map, local.twilio_secrets_map, local.realty_mole_secret_map,
     local.twilio_flex_secrets_map, local.wiseagent_secrets_map, local.jwt_secret_map, local.openai_secret_map
   )
 }
