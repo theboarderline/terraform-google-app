@@ -513,8 +513,8 @@ variable "kaniko_version" {
 variable "kaniko_extra_args" {
   description = "Kaniko args used to specify extra CI build details"
   type        = list(string)
-  default     = [
-    "--snapshotMode=redo",
+  default = [
+    "--snapshot-mode=redo",
     "--cache=true",
     "--cache-ttl=720h"
   ]
