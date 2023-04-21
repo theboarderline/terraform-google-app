@@ -59,7 +59,7 @@ locals {
   }
 
   attom_secret_map = {
-    for key, val in data.google_secret_manager_secret_version.attom_secret : key => val.secret_data
+    (var.attom_secret_name) = var.use_attom ? data.google_secret_manager_secret_version.attom_secret[0].secret_data : ""
   }
 
   wiseagent_secrets_map = {
