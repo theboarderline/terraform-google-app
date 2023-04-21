@@ -22,6 +22,14 @@ data "google_secret_manager_secret_version" "realty_mole_secret" {
 }
 
 
+data "google_secret_manager_secret_version" "attom_secret" {
+  count = var.use_attom ? 1 : 0
+
+  secret  = var.attom_secret_name
+  project = var.app_project_id
+}
+
+
 data "google_secret_manager_secret_version" "jwt_secret" {
   count = var.use_jwt ? 1 : 0
 
