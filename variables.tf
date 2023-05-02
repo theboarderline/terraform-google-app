@@ -548,4 +548,3 @@ variable "kaniko_extra_args" {
   ]
 }
 
-
