@@ -66,12 +66,16 @@ locals {
     (var.attom_secret_name) = var.use_attom ? data.google_secret_manager_secret_version.attom_secret[0].secret_data : ""
   }
 
+  groupme_secret_map = {
+    (var.groupme_secret_name) = var.use_groupme ? data.google_secret_manager_secret_version.groupme_secret[0].secret_data : ""
+  }
+
   wiseagent_secrets_map = {
     for key, val in data.google_secret_manager_secret_version.wiseagent_secrets : key => val.secret_data
   }
 
   app_secrets_map = merge(
-    local.initial_app_secrets_map, local.oauth_secrets_map, local.gmaps_secret_map, local.attom_secret_map,
+    local.initial_app_secrets_map, local.oauth_secrets_map, local.gmaps_secret_map, local.attom_secret_map, local.groupme_secret_map,
     local.sendgrid_secret_map, local.airtable_secrets_map, local.twilio_secrets_map, local.realty_mole_secret_map,
     local.twilio_flex_secrets_map, local.wiseagent_secrets_map, local.jwt_secret_map, local.openai_secret_map
   )

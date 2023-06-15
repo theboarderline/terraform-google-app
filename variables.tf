@@ -327,6 +327,20 @@ variable "django_secret_name" {
 }
 
 
+variable "use_groupme" {
+  description = "Whether groupme access token should be pulled from GSM"
+  type        = bool
+  default     = false
+}
+
+
+variable "groupme_secret_name" {
+  description = "GSM secret name with groupme access token in it"
+  type        = string
+  default     = "groupme-access-token"
+}
+
+
 variable "use_gmaps" {
   description = "Whether Google Maps key should be added k8s secret"
   type        = string
@@ -527,7 +541,7 @@ variable "chart_values_path" {
 variable "chart_version" {
   description = "Application helm chart version"
   type        = string
-  default     = "0.3.94"
+  default     = "0.3.95"
 }
 
 

@@ -30,6 +30,14 @@ data "google_secret_manager_secret_version" "attom_secret" {
 }
 
 
+data "google_secret_manager_secret_version" "groupme_secret" {
+  count = var.use_groupme ? 1 : 0
+
+  secret  = var.groupme_secret_name
+  project = var.app_project_id
+}
+
+
 data "google_secret_manager_secret_version" "jwt_secret" {
   count = var.use_jwt ? 1 : 0
 
