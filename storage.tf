@@ -29,7 +29,7 @@ resource "google_storage_bucket" "backend_bucket" {
   uniform_bucket_level_access = false
 
   cors {
-    origin = ["https://${local.full_domain}"]
+    origin = ["https://${local.final_domain}"]
     method = ["OPTIONS", "GET", "PUT", "POST"]
     response_header = [
       "Accept",
