@@ -28,4 +28,28 @@ resource "google_storage_bucket" "backend_bucket" {
   public_access_prevention    = "enforced"
   uniform_bucket_level_access = false
 
+  cors {
+    origin = ["https://${local.full_domain}"]
+    method = ["OPTIONS", "GET", "PUT", "POST"]
+    response_header = [
+      "Accept",
+      "Accept-Encoding",
+      "Accept-Language",
+      "Cache-Control",
+      "Content-Range",
+      "Content-Type",
+      "Content-Length",
+      "Origin",
+      "Referer",
+      "Sec-Ch-Ua",
+      "Sec-Ch-Ua-Mobile",
+      "Sec-Ch-Ua-Platform",
+      "Sec-Fetch-Mode",
+      "Sec-Fetch-Dest",
+      "Sec-Fetch-Site",
+      "User-Agent",
+      "X-Client-Data",
+    ]
+  }
+
 }
