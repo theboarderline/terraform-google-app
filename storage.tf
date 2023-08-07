@@ -30,7 +30,7 @@ resource "google_storage_bucket" "backend_bucket" {
 
   cors {
     origin = ["https://${local.final_domain}"]
-    method = ["OPTIONS", "GET", "PUT", "POST"]
+    method = ["HEAD", "OPTIONS", "GET", "PUT", "POST"]
     response_header = [
       "Accept",
       "Accept-Encoding",
