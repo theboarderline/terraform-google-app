@@ -17,8 +17,9 @@ locals {
 
   cicd_service_account = "projects/${var.app_project_id}/serviceAccounts/${local.namespace}-cicd@${var.app_project_id}.iam.gserviceaccount.com"
 
-  full_domain  = var.subdomain != "" ? "${var.subdomain}.${var.domain}" : var.domain
-  final_domain = local.lifecycle_name == "prod" ? "${local.full_domain}." : "${local.lifecycle_name}.${local.full_domain}."
+  full_domain      = var.subdomain != "" ? "${var.subdomain}.${var.domain}" : var.domain
+  lifecycle_domain = local.lifecycle_name == "prod" ? "${local.full_domain}" : "${local.lifecycle_name}.${local.full_domain}"
+  final_domain     = "${local.lifecycle_domain}."
 
   app_dns_zone = var.dns_zone_name != "" ? var.dns_zone_name : "${var.app_code}-dns-zone"
 
