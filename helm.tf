@@ -29,7 +29,7 @@ resource "helm_release" "app" {
 
   set {
     name  = "domain"
-    value = local.lifecycle_domain
+    value = local.full_domain
   }
 
   set {
