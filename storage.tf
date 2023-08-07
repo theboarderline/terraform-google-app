@@ -51,6 +51,8 @@ resource "google_storage_bucket" "backend_bucket" {
       "User-Agent",
       "X-Client-Data",
     ]
+    max_age_seconds = var.lifecycle_name == "prod" ? 3600 : 30
+
   }
 
 }
