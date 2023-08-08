@@ -33,6 +33,8 @@ resource "google_storage_bucket" "backend_bucket" {
     method = ["OPTIONS", "PUT", "GET", "HEAD"]
     response_header = [
       "Accept",
+      "Accept-Control-Request-Headers",
+      "Accept-Control-Request-Method",
       "Accept-Encoding",
       "Accept-Language",
       "Cache-Control",
