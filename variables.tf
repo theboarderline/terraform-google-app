@@ -435,6 +435,20 @@ variable "sendgrid_secret_name" {
 }
 
 
+variable "use_deepai" {
+  description = "Whether app should use DeepAI"
+  type        = string
+  default     = false
+}
+
+
+variable "deepai_secret_name" {
+  description = "GSM secret name with DeepAI API key"
+  type        = string
+  default     = "deepai-key"
+}
+
+
 variable "use_openai" {
   description = "Whether app should use OpenAI"
   type        = string

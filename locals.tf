@@ -43,6 +43,10 @@ locals {
     (var.sendgrid_secret_name) = var.use_sendgrid ? data.google_secret_manager_secret_version.sendgrid_secret[0].secret_data : ""
   }
 
+  deepai_secret_map = {
+    (var.deepai_secret_name) = var.use_deepai ? data.google_secret_manager_secret_version.deepai_secret[0].secret_data : ""
+  }
+
   openai_secret_map = {
     (var.openai_secret_name) = var.use_openai ? data.google_secret_manager_secret_version.openai_secret[0].secret_data : ""
   }
@@ -77,7 +81,7 @@ locals {
 
   app_secrets_map = merge(
     local.initial_app_secrets_map, local.oauth_secrets_map, local.gmaps_secret_map, local.attom_secret_map, local.groupme_secret_map,
-    local.sendgrid_secret_map, local.airtable_secrets_map, local.twilio_secrets_map, local.realty_mole_secret_map,
+    local.sendgrid_secret_map, local.airtable_secrets_map, local.twilio_secrets_map, local.realty_mole_secret_map, local.deepai_secret_map,
     local.twilio_flex_secrets_map, local.wiseagent_secrets_map, local.jwt_secret_map, local.openai_secret_map
   )
 }

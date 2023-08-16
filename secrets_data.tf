@@ -54,6 +54,14 @@ data "google_secret_manager_secret_version" "oauth_secrets" {
 }
 
 
+data "google_secret_manager_secret_version" "deepai_secret" {
+  count = var.use_deepai ? 1 : 0
+
+  secret  = var.deepai_secret_name
+  project = var.app_project_id
+}
+
+
 data "google_secret_manager_secret_version" "openai_secret" {
   count = var.use_openai ? 1 : 0
 
