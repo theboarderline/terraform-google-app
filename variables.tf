@@ -327,6 +327,20 @@ variable "django_secret_name" {
 }
 
 
+variable "use_rapid_api" {
+  description = "Whether RapidAPI key should be pulled from GSM"
+  type        = bool
+  default     = false
+}
+
+
+variable "rapid_api_secret_name" {
+  description = "GSM secret name with RapidAPI key in it"
+  type        = string
+  default     = "rapid-api-key"
+}
+
+
 variable "use_groupme" {
   description = "Whether groupme access token should be pulled from GSM"
   type        = bool
@@ -376,20 +390,6 @@ variable "use_crm" {
   description = "Whether CRM service should be deployed"
   type        = string
   default     = false
-}
-
-
-variable "use_realty_mole" {
-  description = "Whether Realty Mole API key should be used"
-  type        = string
-  default     = false
-}
-
-
-variable "realty_mole_secret_name" {
-  description = "Name of Realty Mole api key secret in GSM"
-  type        = string
-  default     = "realty-mole-api-key"
 }
 
 

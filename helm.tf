@@ -83,11 +83,6 @@ resource "helm_release" "app" {
   }
 
   set {
-    name  = "realty_mole.enabled"
-    value = var.use_realty_mole
-  }
-
-  set {
     name  = "attom.enabled"
     value = var.use_attom
   }
