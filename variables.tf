@@ -555,14 +555,14 @@ variable "chart_values_path" {
 variable "chart_version" {
   description = "Application helm chart version"
   type        = string
-  default     = "0.4.3"
+  default     = "0.4.7"
 }
 
 
 variable "kaniko_version" {
   description = "Kaniko version tag used in CI"
   type        = string
-  default     = "latest"
+  default     = "v1.16.0"
 }
 
 
