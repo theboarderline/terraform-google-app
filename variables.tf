@@ -201,14 +201,28 @@ variable "disabled" {
 
 variable "force_destroy" {
   description = "Whether storage buckets should get destroyed even if there are objects within"
-  type        = string
+  type        = bool
   default     = true
+}
+
+
+variable "use_infobip" {
+  description = "Whether Infobip API key should be available to application"
+  type        = bool
+  default     = false
+}
+
+
+variable "infobip_secret_name" {
+  description = "Name of Infobip API key secret in secret manager"
+  type        = string
+  default     = "infobip-api-key"
 }
 
 
 variable "use_helm" {
   description = "Whether CICD should be deploy using helm or not"
-  type        = string
+  type        = bool
   default     = true
 }
 

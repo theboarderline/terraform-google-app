@@ -75,13 +75,17 @@ locals {
     (var.rapid_api_secret_name) = var.use_rapid_api ? data.google_secret_manager_secret_version.rapid_api_secret[0].secret_data : ""
   }
 
+  infobip_secret_map = {
+    (var.infobip_secret_name) = var.use_infobip ? data.google_secret_manager_secret_version.infobip_secret[0].secret_data : ""
+  }
+
   wiseagent_secrets_map = {
     for key, val in data.google_secret_manager_secret_version.wiseagent_secrets : key => val.secret_data
   }
 
   app_secrets_map = merge(
     local.initial_app_secrets_map, local.oauth_secrets_map, local.gmaps_secret_map, local.attom_secret_map, local.groupme_secret_map,
-    local.sendgrid_secret_map, local.airtable_secrets_map, local.twilio_secrets_map, local.deepai_secret_map,
+    local.sendgrid_secret_map, local.airtable_secrets_map, local.twilio_secrets_map, local.deepai_secret_map, local.infobip_secret_map,
     local.twilio_flex_secrets_map, local.wiseagent_secrets_map, local.jwt_secret_map, local.openai_secret_map, local.rapid_api_secret_map
   )
 }

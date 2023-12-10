@@ -22,6 +22,14 @@ data "google_secret_manager_secret_version" "attom_secret" {
 }
 
 
+data "google_secret_manager_secret_version" "infobip_secret" {
+  count = var.use_infobip ? 1 : 0
+
+  secret  = var.infobip_secret_name
+  project = var.app_project_id
+}
+
+
 data "google_secret_manager_secret_version" "rapid_api_secret" {
   count = var.use_rapid_api ? 1 : 0
 
