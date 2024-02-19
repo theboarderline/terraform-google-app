@@ -576,7 +576,7 @@ variable "chart_version" {
 variable "kaniko_version" {
   description = "Kaniko version tag used in CI"
   type        = string
-  default     = "v1.16.0"
+  default     = "v1.20.1"
 }
 
 
