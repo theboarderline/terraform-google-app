@@ -3,6 +3,7 @@ module "bucket" {
   count = var.create_buckets ? 1 : 0
 
   source = "terraform-google-modules/cloud-storage/google//modules/simple_bucket"
+  version = "~> 5.0"
 
   name       = "${local.app_label}-public-content"
   project_id = var.app_project_id
