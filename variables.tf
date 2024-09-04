@@ -573,6 +573,13 @@ variable "chart_version" {
 }
 
 
+variable "cicd_cache_enabled" {
+  description = "Whether cicd triggers should cache layers"
+  type        = bool
+  default     = true
+}
+
+
 variable "use_kaniko" {
   description = "Whether or not kaniko should be used for cicd triggers"
   type        = bool
@@ -580,8 +587,8 @@ variable "use_kaniko" {
 }
 
 
-variable "cicd_extra_args" {
-  description = "Args used to specify extra CI build details"
+variable "basic_cicd_extra_args" {
+  description = "Args used to specify extra CI build details when not using kaniko"
   type        = list(string)
   default     = []
 }
@@ -599,8 +606,6 @@ variable "kaniko_extra_args" {
   type        = list(string)
   default = [
     "--snapshot-mode=redo",
-    "--cache=true",
-    "--cache-ttl=720h"
   ]
 }
 

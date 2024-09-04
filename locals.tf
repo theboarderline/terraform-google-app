@@ -18,7 +18,13 @@ locals {
   cicd_service_account = "projects/${var.app_project_id}/serviceAccounts/${local.namespace}-cicd@${var.app_project_id}.iam.gserviceaccount.com"
 
   basic_build_image = "gcr.io/cloud-builders/docker:latest"
+
   kaniko_build_image = "gcr.io/kaniko-project/executor:${var.kaniko_version}"
+  kaniko_extra_args = var.cicd_cache_enabled ? concat(var.kaniko_extra_args, [
+    "--cache=true",
+    "--cache-ttl=720h"
+  ]) : var .kaniko_extra_args
+
   cicd_build_image = var.use_kaniko ? local.kaniko_build_image : local.basic_build_image
 
   full_domain      = var.subdomain != "" ? "${var.subdomain}.${var.domain}" : var.domain
