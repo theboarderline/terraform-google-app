@@ -31,6 +31,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
         "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}:latest",
         "--context=./src/${each.key}",
       ], local.kaniko_extra_args) : concat([
+        "build",
         "-t",
         "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}:$COMMIT_SHA",
         "-t",
@@ -83,6 +84,7 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
           "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}:latest",
           "--context=./src/${step.value}",
         ], local.kaniko_extra_args) : concat([
+          "build",
           "-t",
           "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}:$COMMIT_SHA",
           "-t",
