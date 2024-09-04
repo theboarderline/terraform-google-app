@@ -583,7 +583,7 @@ variable "cicd_cache_enabled" {
 variable "use_kaniko" {
   description = "Whether or not kaniko should be used for cicd triggers"
   type        = bool
-  default     = true
+  default     = false
 }
 
 
