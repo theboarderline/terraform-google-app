@@ -30,16 +30,18 @@ resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
         "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}:$COMMIT_SHA",
         "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}:latest",
         "--context=./src/${each.key}",
-      ], local.kaniko_extra_args) : concat([
-        "build",
+      ], local.kaniko_extra_args) : concat(
+      ["build"],
+      var.cicd_cache_enabled ? concat(var.basic_cicd_extra_args, [
+      "--cache-from gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}:latest"
+      ]) : var.basic_cicd_extra_args,
+      [
         "-t",
         "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}:$COMMIT_SHA",
         "-t",
         "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}:latest",
         "./src/${each.key}",
-      ], var.cicd_cache_enabled ? concat(var.basic_cicd_extra_args, [
-      "--cache-from gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}:latest"
-      ]) : var.basic_cicd_extra_args)
+      ])
     }
 
     options {
@@ -83,16 +85,18 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
           "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}:$COMMIT_SHA",
           "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}:latest",
           "--context=./src/${step.value}",
-        ], local.kaniko_extra_args) : concat([
-          "build",
+        ], local.kaniko_extra_args) : concat(
+        ["build"],
+        var.cicd_cache_enabled ? concat(var.basic_cicd_extra_args, [
+        "--cache-from gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}:latest"
+        ]) : var.basic_cicd_extra_args,
+        [
           "-t",
           "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}:$COMMIT_SHA",
           "-t",
           "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}:latest",
           "./src/${step.value}",
-        ], var.cicd_cache_enabled ? concat(var.basic_cicd_extra_args, [
-        "--cache-from gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}:latest"
-        ]) : var.basic_cicd_extra_args)
+        ])
       }
     }
 
