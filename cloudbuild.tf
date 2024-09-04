@@ -33,7 +33,8 @@ resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
       ], local.kaniko_extra_args) : concat(
       ["build"],
       var.cicd_cache_enabled ? concat(var.basic_cicd_extra_args, [
-      "--cache-from gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}:latest"
+        "--cache-from",
+        "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}:latest"
       ]) : var.basic_cicd_extra_args,
       [
         "-t",
@@ -88,7 +89,8 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
         ], local.kaniko_extra_args) : concat(
         ["build"],
         var.cicd_cache_enabled ? concat(var.basic_cicd_extra_args, [
-        "--cache-from gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}:latest"
+        "--cache-from",
+        "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}:latest"
         ]) : var.basic_cicd_extra_args,
         [
           "-t",
