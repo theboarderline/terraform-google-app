@@ -573,6 +573,20 @@ variable "chart_version" {
 }
 
 
+variable "use_kaniko" {
+  description = "Whether or not kaniko should be used for cicd triggers"
+  type        = bool
+  default     = true
+}
+
+
+variable "cicd_extra_args" {
+  description = "Args used to specify extra CI build details"
+  type        = list(string)
+  default     = []
+}
+
+
 variable "kaniko_version" {
   description = "Kaniko version tag used in CI"
   type        = string

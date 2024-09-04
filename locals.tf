@@ -17,6 +17,10 @@ locals {
 
   cicd_service_account = "projects/${var.app_project_id}/serviceAccounts/${local.namespace}-cicd@${var.app_project_id}.iam.gserviceaccount.com"
 
+  basic_build_image = "gcr.io/cloud-builders/docker:latest"
+  kaniko_build_image = "gcr.io/kaniko-project/executor:${var.kaniko_version}"
+  cicd_build_image = var.use_kaniko ? local.kaniko_build_image : local.basic_build_image
+
   full_domain      = var.subdomain != "" ? "${var.subdomain}.${var.domain}" : var.domain
   lifecycle_domain = local.lifecycle_name == "prod" ? "${local.full_domain}" : "${local.lifecycle_name}.${local.full_domain}"
   final_domain     = "${local.lifecycle_domain}."
