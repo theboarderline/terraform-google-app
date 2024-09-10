@@ -45,6 +45,11 @@ resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
       ])
     }
 
+    images = !var.use_kaniko ? [
+        "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}:$COMMIT_SHA",
+        "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}:latest",
+    ] : []
+
     options {
       machine_type = var.cicd_machine_type
       logging      = var.logging
@@ -102,6 +107,7 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
       }
     }
 
+    images = !var.use_kaniko ? local.images_to_push : []
 
     step {
       id   = "Update-Images"
