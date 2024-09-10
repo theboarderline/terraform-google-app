@@ -27,7 +27,7 @@ locals {
 
   cicd_build_image = var.use_kaniko ? local.kaniko_build_image : local.basic_build_image
 
-  images_to_push = compact([for location in var.build_locations : [
+  images_to_push = flatten([for location in var.build_locations : [
     "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${location}:latest",
     "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${location}:$COMMIT_SHA",
   ]])
