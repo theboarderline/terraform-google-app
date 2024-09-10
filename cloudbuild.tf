@@ -34,7 +34,7 @@ resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
       ["build"],
       var.cicd_cache_enabled ? concat(var.basic_cicd_extra_args, [
         "--cache-from",
-        "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}:latest"
+        "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}"
       ]) : var.basic_cicd_extra_args,
       [
         "-t",
@@ -90,7 +90,7 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
         ["build"],
         var.cicd_cache_enabled ? concat(var.basic_cicd_extra_args, [
         "--cache-from",
-        "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}:latest"
+        "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}"
         ]) : var.basic_cicd_extra_args,
         [
           "-t",
