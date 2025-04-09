@@ -27,27 +27,27 @@ resource "google_cloudbuild_trigger" "cloudbuild_triggers" {
       id   = "Build-${each.key}"
       name = local.cicd_build_image
       args = var.use_kaniko ? concat([
-        "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}:$COMMIT_SHA",
-        "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}:latest",
+        "--destination=${local.registry_prefix}/${var.app_project_id}/${var.lifecycle_name}/${each.key}:$COMMIT_SHA",
+        "--destination=${local.registry_prefix}/${var.app_project_id}/${var.lifecycle_name}/${each.key}:latest",
         "--context=./src/${each.key}",
       ], local.kaniko_extra_args) : concat(
       ["build"],
       var.cicd_cache_enabled ? concat(var.basic_cicd_extra_args, [
         "--cache-from",
-        "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}"
+        "${local.registry_prefix}/${var.app_project_id}/${var.lifecycle_name}/${each.key}"
       ]) : var.basic_cicd_extra_args,
       [
         "-t",
-        "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}:$COMMIT_SHA",
+        "${local.registry_prefix}/${var.app_project_id}/${var.lifecycle_name}/${each.key}:$COMMIT_SHA",
         "-t",
-        "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}:latest",
+        "${local.registry_prefix}/${var.app_project_id}/${var.lifecycle_name}/${each.key}:latest",
         "./src/${each.key}",
       ])
     }
 
     images = !var.use_kaniko ? [
-        "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}:$COMMIT_SHA",
-        "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${each.key}:latest",
+        "${local.registry_prefix}/${var.app_project_id}/${var.lifecycle_name}/${each.key}:$COMMIT_SHA",
+        "${local.registry_prefix}/${var.app_project_id}/${var.lifecycle_name}/${each.key}:latest",
     ] : []
 
     options {
@@ -88,20 +88,20 @@ resource "google_cloudbuild_trigger" "mono_trigger" {
         id   = "Build-${step.value}"
         name = local.cicd_build_image
         args = var.use_kaniko ? concat([
-          "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}:$COMMIT_SHA",
-          "--destination=gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}:latest",
+          "--destination=${local.registry_prefix}/${var.app_project_id}/${var.lifecycle_name}/${step.value}:$COMMIT_SHA",
+          "--destination=${local.registry_prefix}/${var.app_project_id}/${var.lifecycle_name}/${step.value}:latest",
           "--context=./src/${step.value}",
         ], local.kaniko_extra_args) : concat(
         ["build"],
         var.cicd_cache_enabled ? concat(var.basic_cicd_extra_args, [
         "--cache-from",
-        "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}"
+        "${local.registry_prefix}/${var.app_project_id}/${var.lifecycle_name}/${step.value}"
         ]) : var.basic_cicd_extra_args,
         [
           "-t",
-          "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}:$COMMIT_SHA",
+          "${local.registry_prefix}/${var.app_project_id}/${var.lifecycle_name}/${step.value}:$COMMIT_SHA",
           "-t",
-          "gcr.io/${var.app_project_id}/${var.lifecycle_name}/${step.value}:latest",
+          "${local.registry_prefix}/${var.app_project_id}/${var.lifecycle_name}/${step.value}:latest",
           "./src/${step.value}",
         ])
       }
