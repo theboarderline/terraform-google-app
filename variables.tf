@@ -258,7 +258,7 @@ variable "notification_channel" {
 variable "create_registry" {
   description = "Whether artifact registry repos should be created"
   type        = bool
-  default     = false
+  default     = true
 }
 
 
