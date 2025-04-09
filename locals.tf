@@ -31,8 +31,8 @@ locals {
   registry_prefix = var.create_registry ? "${var.region}-docker.pkg.dev" : "gcr.io"
 
   images_to_push = flatten([for location in var.build_locations : [
-    "${local.registry_prefix}/${var.app_project_id}/${var.lifecycle_name}/${location}:latest",
-    "${local.registry_prefix}/${var.app_project_id}/${var.lifecycle_name}/${location}:$COMMIT_SHA",
+    "${local.registry_prefix}/${var.app_project_id}/${local.registry_id}/${location}:latest",
+    "${local.registry_prefix}/${var.app_project_id}/${local.registry_id}/${location}:$COMMIT_SHA",
   ]])
 
   full_domain      = var.subdomain != "" ? "${var.subdomain}.${var.domain}" : var.domain
